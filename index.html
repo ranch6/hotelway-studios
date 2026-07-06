@@ -18,6 +18,10 @@
     --ink: #2b2721;
     --ink-soft: #6b6357;
     --accent: #8a7a63;
+    --periwinkle: #a7b1dc;
+    --periwinkle-soft: #c5cce9;
+    --butter: #ecdfae;
+    --magenta: #c9407e;
     --serif: 'Cormorant Garamond', Georgia, serif;
     --sans: 'Inter', -apple-system, sans-serif;
   }
@@ -78,7 +82,7 @@
     font-size: clamp(2.6rem, 6.5vw, 4.6rem);
     line-height: 1.08; letter-spacing: -0.01em; max-width: 800px;
   }
-  .hero h1 em { font-style: italic; color: var(--accent); }
+  .hero h1 em { font-style: italic; color: var(--magenta); }
   .hero p { max-width: 540px; margin-top: 28px; color: var(--ink-soft); font-size: 1.05rem; }
   .hero-ctas { margin-top: 44px; display: flex; gap: 18px; flex-wrap: wrap; }
   .btn {
@@ -87,9 +91,9 @@
     transition: all 0.35s;
   }
   .btn-solid { background: var(--ink); color: var(--linen); }
-  .btn-solid:hover { background: var(--accent); }
+  .btn-solid:hover { background: var(--magenta); }
   .btn-ghost { border: 1px solid var(--stone-soft); color: var(--ink); }
-  .btn-ghost:hover { border-color: var(--ink); }
+  .btn-ghost:hover { border-color: var(--magenta); color: var(--magenta); }
 
   /* ---------- work grid ---------- */
   #work { background: var(--linen-deep); }
@@ -105,14 +109,6 @@
   }
   .tile-frame img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s ease; }
   .tile:hover .tile-frame img { transform: scale(1.04); }
-  /* placeholder tones — replace each .ph with a real still (drop an <img> into .tile-frame) */
-  .ph { width: 100%; height: 100%; }
-  .ph-1 { background: linear-gradient(160deg, #e9dfcf 0%, #c9b8a0 60%, #a08c72 100%); }
-  .ph-2 { background: linear-gradient(200deg, #f1e9dc 0%, #d8c9b4 50%, #8f8371 100%); }
-  .ph-3 { background: linear-gradient(150deg, #ded3c2 0%, #b3a48e 70%, #7d7260 100%); }
-  .ph-4 { background: linear-gradient(170deg, #f4ede1 0%, #cbbfa9 55%, #96876f 100%); }
-  .ph-5 { background: linear-gradient(190deg, #e5dac7 0%, #bfae94 60%, #877a64 100%); }
-  .ph-6 { background: linear-gradient(155deg, #efe6d6 0%, #d2c3ab 50%, #a29275 100%); }
   .tile figcaption { margin-top: 14px; }
   .tile .t-title { font-family: var(--serif); font-size: 1.15rem; }
   .tile .t-meta { font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft); margin-top: 3px; }
@@ -129,7 +125,10 @@
     display: flex; gap: 24px; align-items: baseline;
   }
   .direction-list li:last-child { border-bottom: 1px solid var(--linen-deep); }
-  .direction-list .num { font-family: var(--serif); font-style: italic; color: var(--accent); min-width: 28px; }
+  .direction-list .num { font-family: var(--serif); font-style: italic; color: var(--magenta); min-width: 28px; }
+  #direction { background: var(--periwinkle-soft); }
+  #direction .direction-list li, #direction .direction-list li:last-child { border-color: rgba(43,39,33,0.14); }
+  #direction .swatch div { border-color: rgba(43,39,33,0.12); }
 
   /* ---------- services ---------- */
   #services { background: var(--cream); }
@@ -138,13 +137,13 @@
   .service { background: var(--cream); padding: 44px 38px; }
   .service h3 { font-size: 1.45rem; margin-bottom: 12px; }
   .service p { color: var(--ink-soft); font-size: 0.92rem; }
-  .service .s-tag { font-size: 0.64rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 18px; }
+  .service .s-tag { font-size: 0.64rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--magenta); display: block; margin-bottom: 18px; }
 
   /* ---------- packages ---------- */
   .packages-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 56px; }
   @media (max-width: 820px) { .packages-grid { grid-template-columns: 1fr; } }
   .package { background: var(--cream); border: 1px solid var(--stone-soft); padding: 40px 34px; display: flex; flex-direction: column; }
-  .package .p-tag { font-size: 0.64rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  .package .p-tag { font-size: 0.64rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--magenta); margin-bottom: 16px; }
   .package h3 { font-size: 1.5rem; margin-bottom: 6px; }
   .package .p-for { font-size: 0.82rem; font-style: italic; color: var(--ink-soft); margin-bottom: 22px; }
   .package ul { list-style: none; font-size: 0.88rem; color: var(--ink-soft); flex: 1; }
@@ -163,7 +162,7 @@
     display: flex; justify-content: space-between; align-items: center; gap: 20px;
   }
   .faq-list summary::-webkit-details-marker { display: none; }
-  .faq-list summary::after { content: "+"; font-family: var(--serif); font-size: 1.4rem; color: var(--accent); transition: transform 0.3s; }
+  .faq-list summary::after { content: "+"; font-family: var(--serif); font-size: 1.4rem; color: var(--magenta); transition: transform 0.3s; }
   .faq-list details[open] summary::after { transform: rotate(45deg); }
   .faq-list details p { padding: 0 0 24px; font-size: 0.92rem; color: var(--ink-soft); max-width: 620px; }
 
@@ -177,7 +176,7 @@
   #process { background: var(--linen-deep); }
   .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 56px; }
   @media (max-width: 760px) { .steps { grid-template-columns: 1fr; } }
-  .step .num { font-family: var(--serif); font-style: italic; font-size: 2.2rem; color: var(--accent); }
+  .step .num { font-family: var(--serif); font-style: italic; font-size: 2.2rem; color: var(--magenta); }
   .step h3 { font-size: 1.25rem; margin: 10px 0 8px; }
   .step p { font-size: 0.9rem; color: var(--ink-soft); }
 
@@ -227,44 +226,44 @@
     <h2 class="reveal">Guest-experience stories, one frame at a time.</h2>
     <p class="lede reveal">Every stay has a narrative arc. We shoot it in sequence — the door, the light, the first coffee — and deliver it as stills and vertical films built for the platforms where travelers actually book.</p>
     <div class="grid">
-      <!-- To publish a real still: replace <div class="ph ph-N"></div> with <img src="assets/your-photo.jpg" alt="..."> -->
+      <!-- Illustrated placeholders — swap each <img> for a real still as shoots happen -->
       <figure class="tile reveal">
-        <div class="tile-frame"><div class="ph ph-1"></div></div>
+        <div class="tile-frame"><img src="assets/tile-arrival.svg" alt="Illustration: arched hotel room door with a magenta doormat"></div>
         <figcaption>
           <div class="t-title">Arrival</div>
           <div class="t-meta">Doorway · Key · First Light</div>
         </figcaption>
       </figure>
       <figure class="tile reveal">
-        <div class="tile-frame"><div class="ph ph-2"></div></div>
+        <div class="tile-frame"><img src="assets/tile-room.svg" alt="Illustration: hotel bed with window light and mountain view"></div>
         <figcaption>
           <div class="t-title">The Room</div>
           <div class="t-meta">Bed · Window Light · Linen</div>
         </figcaption>
       </figure>
       <figure class="tile reveal">
-        <div class="tile-frame"><div class="ph ph-3"></div></div>
+        <div class="tile-frame"><img src="assets/tile-corridor.svg" alt="Illustration: receding hotel corridor arches with a magenta runner"></div>
         <figcaption>
           <div class="t-title">Corridors</div>
           <div class="t-meta">Passage · Symmetry · Quiet</div>
         </figcaption>
       </figure>
       <figure class="tile reveal">
-        <div class="tile-frame"><div class="ph ph-4"></div></div>
+        <div class="tile-frame"><img src="assets/tile-morning.svg" alt="Illustration: morning coffee cup with steam"></div>
         <figcaption>
           <div class="t-title">Morning</div>
           <div class="t-meta">Coffee · Breakfast · Slow Start</div>
         </figcaption>
       </figure>
       <figure class="tile reveal">
-        <div class="tile-frame"><div class="ph ph-5"></div></div>
+        <div class="tile-frame"><img src="assets/tile-lobby.svg" alt="Illustration: lobby arches with pendant lamp and bench"></div>
         <figcaption>
           <div class="t-title">Common Spaces</div>
           <div class="t-meta">Lobby · Lounge · Texture</div>
         </figcaption>
       </figure>
       <figure class="tile reveal">
-        <div class="tile-frame"><div class="ph ph-6"></div></div>
+        <div class="tile-frame"><img src="assets/tile-view.svg" alt="Illustration: window view of mountains and a lake"></div>
         <figcaption>
           <div class="t-title">The View</div>
           <div class="t-meta">What You Wake Up To</div>
@@ -279,12 +278,12 @@
   <div class="wrap">
     <p class="eyebrow reveal">Visual Direction</p>
     <h2 class="reveal">Quiet luxury, in practice.</h2>
-    <p class="lede reveal">A restrained, editorial standard applied to every property we shoot. Warm neutrals, natural light, unhurried pacing — imagery that feels like the stay itself.</p>
+    <p class="lede reveal">A restrained, editorial standard applied to every property we shoot. Warm creams, soft periwinkle, one confident pop of color — natural light and unhurried pacing, imagery that feels like the stay itself.</p>
     <div class="swatches reveal">
       <div class="swatch"><div style="background:#faf7f1"></div><span>Linen</span></div>
-      <div class="swatch"><div style="background:#e9dfcf"></div><span>Sand</span></div>
-      <div class="swatch"><div style="background:#cfc8bb"></div><span>Stone</span></div>
-      <div class="swatch"><div style="background:#8a7a63"></div><span>Umber</span></div>
+      <div class="swatch"><div style="background:#ecdfae"></div><span>Butter</span></div>
+      <div class="swatch"><div style="background:#a7b1dc"></div><span>Periwinkle</span></div>
+      <div class="swatch"><div style="background:#c9407e"></div><span>Magenta</span></div>
       <div class="swatch"><div style="background:#2b2721"></div><span>Ink</span></div>
     </div>
     <ul class="direction-list reveal">

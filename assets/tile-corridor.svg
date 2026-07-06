@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000">
+  <rect width="800" height="1000" fill="#f3eee4"/>
+  <!-- receding arches -->
+  <path d="M110 940 L110 350 Q110 160 400 160 Q690 160 690 350 L690 940 Z" fill="#e3d8c2"/>
+  <path d="M180 940 L180 400 Q180 250 400 250 Q620 250 620 400 L620 940 Z" fill="#d3c5a8"/>
+  <path d="M250 940 L250 450 Q250 340 400 340 Q550 340 550 450 L550 940 Z" fill="#c0af8e"/>
+  <path d="M320 940 L320 500 Q320 430 400 430 Q480 430 480 500 L480 940 Z" fill="#a7b1dc"/>
+  <!-- distant doorway glow -->
+  <path d="M362 940 L362 560 Q362 520 400 520 Q438 520 438 560 L438 940 Z" fill="#f6f1e5"/>
+  <!-- runner -->
+  <path d="M330 940 L470 940 L446 700 L354 700 Z" fill="#c9407e"/>
+  <path d="M354 700 L446 700 L438 620 L362 620 Z" fill="#b23a6f"/>
+</svg>

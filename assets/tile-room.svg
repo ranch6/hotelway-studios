@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000">
+  <rect width="800" height="1000" fill="#ecdfae"/>
+  <!-- window -->
+  <rect x="470" y="180" width="240" height="330" rx="8" fill="#f6f1e5"/>
+  <rect x="486" y="196" width="208" height="298" rx="4" fill="#c5cce9"/>
+  <path d="M486 420 L560 340 L620 400 L662 356 L694 392 L694 494 L486 494 Z" fill="#8f9ac9"/>
+  <circle cx="640" cy="250" r="26" fill="#f6f1e5"/>
+  <line x1="590" y1="196" x2="590" y2="494" stroke="#ecdfae" stroke-width="6"/>
+  <!-- bed shadow -->
+  <ellipse cx="360" cy="880" rx="300" ry="28" fill="#d9c98c" opacity="0.6"/>
+  <!-- headboard -->
+  <rect x="90" y="480" width="540" height="200" rx="24" fill="#c8a97c"/>
+  <!-- mattress + duvet -->
+  <rect x="70" y="640" width="580" height="220" rx="26" fill="#fffdf8"/>
+  <path d="M70 730 Q360 700 650 730 L650 838 Q650 862 624 862 L96 862 Q70 862 70 838 Z" fill="#f3eee4"/>
+  <!-- pillows -->
+  <rect x="130" y="560" width="180" height="95" rx="20" fill="#fffdf8"/>
+  <rect x="340" y="560" width="180" height="95" rx="20" fill="#fffdf8"/>
+  <rect x="270" y="600" width="110" height="70" rx="16" fill="#c9407e"/>
+  <!-- throw -->
+  <rect x="70" y="790" width="580" height="34" fill="#a7b1dc"/>
+</svg>

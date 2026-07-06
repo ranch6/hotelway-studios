@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000">
+  <rect width="800" height="1000" fill="#a7b1dc"/>
+  <!-- soft shadow -->
+  <ellipse cx="410" cy="855" rx="240" ry="26" fill="#8f9ac9" opacity="0.55"/>
+  <!-- arched door -->
+  <path d="M250 850 L250 400 Q250 250 400 250 Q550 250 550 400 L550 850 Z" fill="#f6f1e5"/>
+  <path d="M280 850 L280 410 Q280 285 400 285 Q520 285 520 410 L520 850 Z" fill="#efe5cf"/>
+  <!-- door panels -->
+  <rect x="315" y="450" width="75" height="150" rx="6" fill="#e3d4b4"/>
+  <rect x="412" y="450" width="75" height="150" rx="6" fill="#e3d4b4"/>
+  <rect x="315" y="630" width="75" height="170" rx="6" fill="#e3d4b4"/>
+  <rect x="412" y="630" width="75" height="170" rx="6" fill="#e3d4b4"/>
+  <!-- knob -->
+  <circle cx="495" cy="585" r="11" fill="#2b2721"/>
+  <!-- doormat -->
+  <rect x="320" y="862" width="160" height="26" rx="13" fill="#c9407e"/>
+  <!-- room number -->
+  <text x="400" y="368" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="44" fill="#8a7a63">no. 12</text>
+</svg>
