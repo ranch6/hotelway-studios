@@ -46,11 +46,10 @@ flow is what makes the private-edit/public-publish split work.)
 - **From anywhere:** claude.ai/code can connect to the GitHub repo directly,
   so you can make copy tweaks from a browser without this machine.
 
-## Before first publish — swap the placeholders
+## Before first publish
 
-- [ ] Contact email (`hello@hotelwaystudios.com` in index.html) → your real
-      studio address
-- [ ] Instagram link (`instagram.com/hotelwaystudios`) → your real handle
+- [x] Contact email → hotelwaystudios@gmail.com
+- [x] Instagram → @hotelwaystudios
 - [ ] Replace work-grid gradient placeholders with real stills as shoots
       happen (each tile: swap `<div class="ph ph-N"></div>` for
       `<img src="assets/....jpg" alt="...">`)
