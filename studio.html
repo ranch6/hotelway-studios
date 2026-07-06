@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotelway Studios — Faceless POV Hospitality Content</title>
+<meta name="description" content="Cinematic, faceless photo and short-form video for hotels and stays. POV guest-experience storytelling from a New York–based studio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --linen: #faf7f1;
+    --linen-deep: #f3eee4;
+    --cream: #fffdf8;
+    --stone: #a89f91;
+    --stone-soft: #cfc8bb;
+    --ink: #2b2721;
+    --ink-soft: #6b6357;
+    --accent: #8a7a63;
+    --periwinkle: #a7b1dc;
+    --periwinkle-soft: #c5cce9;
+    --butter: #ecdfae;
+    --magenta: #c9407e;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Inter', -apple-system, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  section, header.hero { scroll-margin-top: 72px; }
+  body {
+    background: var(--linen);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--stone-soft); }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+
+  /* ---------- nav ---------- */
+  nav {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--linen) 88%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--linen-deep);
+  }
+  .nav-inner {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 28px; max-width: 1080px; margin: 0 auto;
+  }
+  .wordmark {
+    font-family: var(--serif); font-size: 1.15rem; letter-spacing: 0.28em;
+    text-transform: uppercase; text-decoration: none; color: var(--ink);
+  }
+  .nav-links a {
+    font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-soft); text-decoration: none; margin-left: 28px;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  @media (max-width: 640px) { .nav-links a { margin-left: 16px; font-size: 0.64rem; } }
+
+  /* ---------- shared ---------- */
+  section { padding: 110px 0; }
+  .eyebrow {
+    font-size: 0.7rem; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 22px; font-weight: 400;
+  }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 400; }
+  h2 { font-size: clamp(1.9rem, 4vw, 2.7rem); line-height: 1.2; margin-bottom: 18px; }
+  .lede { max-width: 560px; color: var(--ink-soft); font-size: 1.02rem; }
+
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ---------- hero ---------- */
+  header.hero { padding-top: 150px; padding-bottom: 130px; }
+  .hero h1 {
+    font-size: clamp(2.6rem, 6.5vw, 4.6rem);
+    line-height: 1.08; letter-spacing: -0.01em; max-width: 800px;
+  }
+  .hero h1 em { font-style: italic; color: var(--magenta); }
+  .hero p { max-width: 540px; margin-top: 28px; color: var(--ink-soft); font-size: 1.05rem; }
+  .hero-ctas { margin-top: 44px; display: flex; gap: 18px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; text-decoration: none; font-size: 0.72rem;
+    letter-spacing: 0.22em; text-transform: uppercase; padding: 15px 34px;
+    transition: all 0.35s;
+  }
+  .btn-solid { background: var(--ink); color: var(--linen); }
+  .btn-solid:hover { background: var(--magenta); }
+  .btn-ghost { border: 1px solid var(--stone-soft); color: var(--ink); }
+  .btn-ghost:hover { border-color: var(--magenta); color: var(--magenta); }
+
+  /* ---------- work grid ---------- */
+  #work { background: var(--linen-deep); }
+  .grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 54px;
+  }
+  @media (max-width: 820px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 540px) { .grid { grid-template-columns: 1fr; } }
+  .tile { text-decoration: none; color: inherit; }
+  .tile-frame {
+    aspect-ratio: 4 / 5; overflow: hidden; position: relative;
+    background: var(--stone-soft);
+  }
+  .tile-frame img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s ease; }
+  .tile:hover .tile-frame img { transform: scale(1.04); }
+  .tile figcaption { margin-top: 14px; }
+  .tile .t-title { font-family: var(--serif); font-size: 1.15rem; }
+  .tile .t-meta { font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft); margin-top: 3px; }
+  .work-note { margin-top: 40px; font-size: 0.8rem; color: var(--ink-soft); font-style: italic; }
+
+  /* ---------- visual direction ---------- */
+  .swatches { display: flex; gap: 14px; margin: 40px 0; flex-wrap: wrap; }
+  .swatch { width: 84px; }
+  .swatch div { height: 84px; border: 1px solid rgba(0,0,0,0.05); }
+  .swatch span { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); display: block; margin-top: 8px; }
+  .direction-list { list-style: none; margin-top: 34px; max-width: 620px; }
+  .direction-list li {
+    padding: 16px 0; border-top: 1px solid var(--linen-deep);
+    display: flex; gap: 24px; align-items: baseline;
+  }
+  .direction-list li:last-child { border-bottom: 1px solid var(--linen-deep); }
+  .direction-list .num { font-family: var(--serif); font-style: italic; color: var(--magenta); min-width: 28px; }
+  #direction { background: var(--periwinkle-soft); }
+  #direction .direction-list li, #direction .direction-list li:last-child { border-color: rgba(43,39,33,0.14); }
+  #direction .swatch div { border-color: rgba(43,39,33,0.12); }
+
+  /* ---------- services ---------- */
+  #services { background: var(--cream); }
+  .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--stone-soft); margin-top: 60px; border: 1px solid var(--stone-soft); }
+  @media (max-width: 700px) { .services-grid { grid-template-columns: 1fr; } }
+  .service { background: var(--cream); padding: 44px 38px; }
+  .service h3 { font-size: 1.45rem; margin-bottom: 12px; }
+  .service p { color: var(--ink-soft); font-size: 0.92rem; }
+  .service .s-tag { font-size: 0.64rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--magenta); display: block; margin-bottom: 18px; }
+
+  /* ---------- packages ---------- */
+  .packages-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 56px; }
+  @media (max-width: 820px) { .packages-grid { grid-template-columns: 1fr; } }
+  .package { background: var(--cream); border: 1px solid var(--stone-soft); padding: 40px 34px; display: flex; flex-direction: column; }
+  .package .p-tag { font-size: 0.64rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--magenta); margin-bottom: 16px; }
+  .package h3 { font-size: 1.5rem; margin-bottom: 6px; }
+  .package .p-for { font-size: 0.82rem; font-style: italic; color: var(--ink-soft); margin-bottom: 22px; }
+  .package ul { list-style: none; font-size: 0.88rem; color: var(--ink-soft); flex: 1; }
+  .package li { padding: 10px 0; border-top: 1px solid var(--linen-deep); }
+  .package li:last-child { border-bottom: 1px solid var(--linen-deep); }
+  .packages-note { margin-top: 36px; font-size: 0.85rem; color: var(--ink-soft); font-style: italic; }
+
+  /* ---------- faq ---------- */
+  #faq { background: var(--linen-deep); }
+  .faq-list { margin-top: 50px; max-width: 720px; }
+  .faq-list details { border-top: 1px solid var(--stone-soft); }
+  .faq-list details:last-child { border-bottom: 1px solid var(--stone-soft); }
+  .faq-list summary {
+    cursor: pointer; list-style: none; padding: 22px 0;
+    font-family: var(--serif); font-size: 1.2rem;
+    display: flex; justify-content: space-between; align-items: center; gap: 20px;
+  }
+  .faq-list summary::-webkit-details-marker { display: none; }
+  .faq-list summary::after { content: "+"; font-family: var(--serif); font-size: 1.4rem; color: var(--magenta); transition: transform 0.3s; }
+  .faq-list details[open] summary::after { transform: rotate(45deg); }
+  .faq-list details p { padding: 0 0 24px; font-size: 0.92rem; color: var(--ink-soft); max-width: 620px; }
+
+  /* ---------- why pov ---------- */
+  .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 44px; margin-top: 56px; }
+  @media (max-width: 760px) { .why-grid { grid-template-columns: 1fr; gap: 32px; } }
+  .why h3 { font-size: 1.3rem; margin-bottom: 10px; }
+  .why p { font-size: 0.92rem; color: var(--ink-soft); }
+
+  /* ---------- process ---------- */
+  #process { background: var(--linen-deep); }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 56px; }
+  @media (max-width: 760px) { .steps { grid-template-columns: 1fr; } }
+  .step .num { font-family: var(--serif); font-style: italic; font-size: 2.2rem; color: var(--magenta); }
+  .step h3 { font-size: 1.25rem; margin: 10px 0 8px; }
+  .step p { font-size: 0.9rem; color: var(--ink-soft); }
+
+  /* ---------- about / contact ---------- */
+  .about-inner { max-width: 640px; }
+  .about-inner p + p { margin-top: 18px; }
+  #contact { text-align: center; padding: 130px 0; }
+  #contact h2 { font-size: clamp(2rem, 5vw, 3.2rem); }
+  #contact .lede { margin: 20px auto 0; }
+  .contact-links { margin-top: 44px; display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; }
+
+  footer {
+    border-top: 1px solid var(--linen-deep); padding: 34px 0;
+    font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft);
+  }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="wordmark" href="#top">Hotelway</a>
+    <div class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#services">Services</a>
+      <a href="#packages">Packages</a>
+      <a href="#about">About</a>
+      <a href="#contact">Inquire</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero wrap" id="top">
+  <p class="eyebrow">Hotelway Studios</p>
+  <h1>The stay, as your guests <em>will remember it.</em></h1>
+  <p>Cinematic, faceless photo and short-form video for hotels and considered stays. We shoot the guest's point of view — arrival to checkout — so travelers don't just see your property. They feel themselves in it.</p>
+  <div class="hero-ctas">
+    <a class="btn btn-solid" href="#work">View Work</a>
+    <a class="btn btn-ghost" href="#contact">Start a Project</a>
+  </div>
+</header>
+
+<section id="work">
+  <div class="wrap">
+    <p class="eyebrow reveal">Selected Work</p>
+    <h2 class="reveal">Guest-experience stories, one frame at a time.</h2>
+    <p class="lede reveal">Every stay has a narrative arc. We shoot it in sequence — the door, the light, the first coffee — and deliver it as stills and vertical films built for the platforms where travelers actually book.</p>
+    <div class="grid">
+      <!-- Illustrated placeholders — swap each <img> for a real still as shoots happen -->
+      <figure class="tile reveal">
+        <div class="tile-frame"><img src="assets/tile-arrival.svg" alt="Illustration: arched hotel room door with a magenta doormat"></div>
+        <figcaption>
+          <div class="t-title">Arrival</div>
+          <div class="t-meta">Doorway · Key · First Light</div>
+        </figcaption>
+      </figure>
+      <figure class="tile reveal">
+        <div class="tile-frame"><img src="assets/tile-room.svg" alt="Illustration: hotel bed with window light and mountain view"></div>
+        <figcaption>
+          <div class="t-title">The Room</div>
+          <div class="t-meta">Bed · Window Light · Linen</div>
+        </figcaption>
+      </figure>
+      <figure class="tile reveal">
+        <div class="tile-frame"><img src="assets/tile-corridor.svg" alt="Illustration: receding hotel corridor arches with a magenta runner"></div>
+        <figcaption>
+          <div class="t-title">Corridors</div>
+          <div class="t-meta">Passage · Symmetry · Quiet</div>
+        </figcaption>
+      </figure>
+      <figure class="tile reveal">
+        <div class="tile-frame"><img src="assets/tile-morning.svg" alt="Illustration: morning coffee cup with steam"></div>
+        <figcaption>
+          <div class="t-title">Morning</div>
+          <div class="t-meta">Coffee · Breakfast · Slow Start</div>
+        </figcaption>
+      </figure>
+      <figure class="tile reveal">
+        <div class="tile-frame"><img src="assets/tile-lobby.svg" alt="Illustration: lobby arches with pendant lamp and bench"></div>
+        <figcaption>
+          <div class="t-title">Common Spaces</div>
+          <div class="t-meta">Lobby · Lounge · Texture</div>
+        </figcaption>
+      </figure>
+      <figure class="tile reveal">
+        <div class="tile-frame"><img src="assets/tile-view.svg" alt="Illustration: window view of mountains and a lake"></div>
+        <figcaption>
+          <div class="t-title">The View</div>
+          <div class="t-meta">What You Wake Up To</div>
+        </figcaption>
+      </figure>
+    </div>
+    <p class="work-note reveal">Studio series — new location work published monthly. Full case studies available on request.</p>
+  </div>
+</section>
+
+<section id="direction">
+  <div class="wrap">
+    <p class="eyebrow reveal">Visual Direction</p>
+    <h2 class="reveal">Quiet luxury, in practice.</h2>
+    <p class="lede reveal">A restrained, editorial standard applied to every property we shoot. Warm creams, soft periwinkle, one confident pop of color — natural light and unhurried pacing, imagery that feels like the stay itself.</p>
+    <div class="swatches reveal">
+      <div class="swatch"><div style="background:#faf7f1"></div><span>Linen</span></div>
+      <div class="swatch"><div style="background:#ecdfae"></div><span>Butter</span></div>
+      <div class="swatch"><div style="background:#a7b1dc"></div><span>Periwinkle</span></div>
+      <div class="swatch"><div style="background:#c9407e"></div><span>Magenta</span></div>
+      <div class="swatch"><div style="background:#2b2721"></div><span>Ink</span></div>
+    </div>
+    <ul class="direction-list reveal">
+      <li><span class="num">01</span><span>No faces, no talking, no voiceover — the viewer is the guest.</span></li>
+      <li><span class="num">02</span><span>Natural window light first; movement slow and deliberate.</span></li>
+      <li><span class="num">03</span><span>Detail over spectacle — hands, textures, thresholds, steam off the coffee.</span></li>
+      <li><span class="num">04</span><span>Clean, minimal grade. No trend filters. Brand-safe for years, not weeks.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <p class="eyebrow reveal">Services</p>
+    <h2 class="reveal">Everything a property needs to be seen — and felt.</h2>
+    <p class="lede reveal">Shot in a single low-disruption visit. Delivered ready to post, ready to run.</p>
+    <div class="services-grid">
+      <div class="service reveal">
+        <span class="s-tag">01 — Short-Form Video</span>
+        <h3>Cinematic vertical films</h3>
+        <p>15–45 second POV films built for Reels and TikTok — arrival sequences, room reveals, morning rituals. Native pacing, licensed-audio ready, delivered in platform-perfect crops.</p>
+      </div>
+      <div class="service reveal">
+        <span class="s-tag">02 — Photography</span>
+        <h3>Hospitality photography</h3>
+        <p>Editorial stills of rooms, light, and texture — imagery for your website, OTA listings, and press kit that looks like a magazine spread, not a real-estate listing.</p>
+      </div>
+      <div class="service reveal">
+        <span class="s-tag">03 — POV Content</span>
+        <h3>Faceless guest-experience stories</h3>
+        <p>First-person sequences that follow the full arc of a stay. No talent releases, no influencer risk, no dated faces — content your brand owns and reuses indefinitely.</p>
+      </div>
+      <div class="service reveal">
+        <span class="s-tag">04 — Deliverables</span>
+        <h3>Marketing-ready packages</h3>
+        <p>Organic and paid-usage bundles: hero films, cutdowns, stills, and story-format crops — organized, licensed, and sized for every placement your team runs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="wrap">
+    <p class="eyebrow reveal">Why POV</p>
+    <h2 class="reveal">Why faceless POV content works.</h2>
+    <div class="why-grid">
+      <div class="why reveal">
+        <h3>The viewer becomes the guest.</h3>
+        <p>First-person framing lets travelers place themselves in the room. It sells the feeling of the stay — which is what people actually book.</p>
+      </div>
+      <div class="why reveal">
+        <h3>Brand-safe by design.</h3>
+        <p>No faces means no talent releases, no personality risk, no content that ages out when a creator's image changes. Your property is the star.</p>
+      </div>
+      <div class="why reveal">
+        <h3>Evergreen and reusable.</h3>
+        <p>Quiet, minimal content doesn't chase trends, so it doesn't expire with them. One shoot feeds your channels for seasons, organic and paid alike.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="wrap">
+    <p class="eyebrow reveal">Process</p>
+    <h2 class="reveal">One visit. Zero disruption.</h2>
+    <p class="lede reveal">Designed for operating hotels — we work around your guests, not through them.</p>
+    <div class="steps">
+      <div class="step reveal">
+        <span class="num">01</span>
+        <h3>Scout &amp; shot list</h3>
+        <p>Before we arrive: a walkthrough of your spaces on paper, a light study, and a sequenced shot list agreed with your team.</p>
+      </div>
+      <div class="step reveal">
+        <span class="num">02</span>
+        <h3>The shoot day</h3>
+        <p>One quiet day on property — early light to evening ambiance. Small footprint, no crew sprawl, no roped-off spaces.</p>
+      </div>
+      <div class="step reveal">
+        <span class="num">03</span>
+        <h3>Edit &amp; delivery</h3>
+        <p>Films and stills delivered within two weeks, organized by placement, with usage terms in plain language.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="packages">
+  <div class="wrap">
+    <p class="eyebrow reveal">Packages</p>
+    <h2 class="reveal">Three ways to work together.</h2>
+    <p class="lede reveal">Every property is scoped individually — these are the shapes an engagement usually takes.</p>
+    <div class="packages-grid">
+      <div class="package reveal">
+        <p class="p-tag">01 — Half Day</p>
+        <h3>The Reel Set</h3>
+        <p class="p-for">For properties testing short-form for the first time.</p>
+        <ul>
+          <li>3 vertical films (15–45s), platform-ready</li>
+          <li>10 editorial stills</li>
+          <li>Story-format crops of every film</li>
+          <li>Organic usage license included</li>
+        </ul>
+      </div>
+      <div class="package reveal">
+        <p class="p-tag">02 — Full Day · Flagship</p>
+        <h3>The Full Stay</h3>
+        <p class="p-for">The complete guest-experience arc, arrival to checkout.</p>
+        <ul>
+          <li>5 vertical films across the full stay arc</li>
+          <li>30 editorial stills, morning-to-evening light</li>
+          <li>Cutdowns + crops for every placement</li>
+          <li>Organic + paid usage options</li>
+        </ul>
+      </div>
+      <div class="package reveal">
+        <p class="p-tag">03 — Ongoing</p>
+        <h3>The Season Partner</h3>
+        <p class="p-for">A content library that grows with your calendar.</p>
+        <ul>
+          <li>Quarterly visits, seasonally planned</li>
+          <li>Priority scheduling &amp; consistent look</li>
+          <li>Always-fresh library for organic and paid</li>
+          <li>Rolling license across all deliverables</li>
+        </ul>
+      </div>
+    </div>
+    <p class="packages-note reveal">Rates on request — tell us about the property and we'll send a tailored quote within two business days.</p>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <p class="eyebrow reveal">Questions</p>
+    <h2 class="reveal">The practical details.</h2>
+    <div class="faq-list reveal">
+      <details>
+        <summary>Will a shoot disrupt our guests?</summary>
+        <p>No. We shoot with a small footprint — one person, no crew sprawl, no roped-off spaces. Occupied areas are shot in quiet windows agreed with your team, and guest privacy is absolute: no faces, ever.</p>
+      </details>
+      <details>
+        <summary>How quickly are assets delivered?</summary>
+        <p>Films and stills are delivered within two weeks of the shoot day, organized by placement and named so your team can find everything without a walkthrough call.</p>
+      </details>
+      <details>
+        <summary>Who owns the content?</summary>
+        <p>You receive a plain-language license covering organic use across your channels; paid-media usage is available as an add-on. The studio retains portfolio rights. No surprises buried in fine print.</p>
+      </details>
+      <details>
+        <summary>Why faceless content?</summary>
+        <p>No talent releases, no influencer risk, nothing that ages out when a creator's image changes. First-person framing also converts better for hospitality — the viewer places themselves in the room instead of watching someone else enjoy it.</p>
+      </details>
+      <details>
+        <summary>Do you travel?</summary>
+        <p>Based in New York, available worldwide. Travel is billed at cost, and for destination properties we can often pair your shoot with others in the region to share those costs.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about-inner">
+    <p class="eyebrow reveal">About</p>
+    <h2 class="reveal">A small studio with a narrow obsession.</h2>
+    <p class="reveal">Hotelway Studios is a New York–based creative studio focused on one thing: how a stay feels from the guest's side of the door. We make faceless, POV-driven photo and video for hotels, boutique properties, and considered short-term stays.</p>
+    <p class="reveal">We keep the work quiet on purpose — no loud branding, no influencer theatrics. Just the light in the room, the weight of the key, and the version of your property that guests describe to their friends.</p>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <p class="eyebrow reveal">Collaborations &amp; Inquiries</p>
+    <h2 class="reveal">Let's show people the stay.</h2>
+    <p class="lede reveal">Hotels, boutique stays, and hospitality brands — for availability, rates, or a content partnership, reach out. We respond within two business days.</p>
+    <div class="contact-links reveal">
+      <a class="btn btn-solid" href="mailto:hotelwaystudios@gmail.com">Email the Studio</a>
+      <a class="btn btn-ghost" href="https://instagram.com/hotelwaystudios" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Hotelway Studios</span>
+    <span>New York · Available Worldwide</span>
+  </div>
+</footer>
+
+<script>
+  // Scroll-reveal via position sweep (IntersectionObserver is unreliable
+  // in some embedded viewers, and a stuck observer leaves sections invisible).
+  function revealSweep() {
+    document.querySelectorAll('.reveal:not(.in)').forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.95 && r.bottom > 0) el.classList.add('in');
+    });
+  }
+  window.addEventListener('scroll', revealSweep, { passive: true });
+  window.addEventListener('resize', revealSweep);
+  revealSweep();
+  setTimeout(revealSweep, 300);
+
+  // In-page navigation. Smooth scroll where supported; some embedded
+  // viewers freeze smooth-scroll animations (or navigate the hash without
+  // firing click listeners), so verify arrival and jump instantly if the
+  // page never moved.
+  const NAV_OFFSET = 72;
+  function ensureArrival(target) {
+    const startY = window.scrollY;
+    setTimeout(() => {
+      const delta = target.getBoundingClientRect().top - NAV_OFFSET;
+      if (Math.abs(window.scrollY - startY) < 2 && Math.abs(delta) > 8) {
+        window.scrollTo({ top: window.scrollY + delta, behavior: 'instant' });
+      }
+    }, 350);
+  }
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth' });
+      history.replaceState(null, '', a.getAttribute('href'));
+      ensureArrival(target);
+    });
+  });
+  window.addEventListener('hashchange', () => {
+    const target = location.hash && document.querySelector(location.hash);
+    if (target) ensureArrival(target);
+  });
+</script>
+
+</body>
+</html>
