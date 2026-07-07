@@ -46,6 +46,42 @@ flow is what makes the private-edit/public-publish split work.)
 - **From anywhere:** claude.ai/code can connect to the GitHub repo directly,
   so you can make copy tweaks from a browser without this machine.
 
+## Forms — Formspree setup (~3 min, free tier: 50 submissions/mo forever)
+
+Both forms (cover-page "Join" line and inquire.html) are wired for Formspree
+and fall back to opening a pre-filled email until you add your form IDs.
+
+1. formspree.io → Sign up with hotelwaystudios@gmail.com (free plan).
+2. Create two forms in the dashboard: name one `early-access`, one `inquiries`.
+   Each gets an ID like `mqkrzabc` (visible in the form's URL/integration tab).
+3. Paste the IDs into the code:
+   - `index.html` → `const JOIN_ENDPOINT = 'https://formspree.io/f/YOUR_JOIN_FORM_ID'`
+   - `inquire.html` → `const INQUIRY_ENDPOINT = 'https://formspree.io/f/YOUR_INQUIRY_FORM_ID'`
+4. Submit each form once and click the confirmation email Formspree sends.
+
+Submissions then arrive at hotelwaystudios@gmail.com with the visitor's
+address as reply-to, and inquiries are also stored in the Formspree dashboard.
+
+## Gmail — auto-sort inquiries + auto-reply (~5 min, in Gmail settings)
+
+Auto-sort into a folder:
+1. Gmail → Settings → Filters → Create new filter.
+2. From: `noreply@formspree.io`, Subject: `Hotelway inquiry` → Create filter →
+   "Apply label: Inquiries" (create the label) + "Never send to Spam".
+3. Repeat with Subject: `early access` → label "Early Access".
+
+Auto-response ("message received, we'll get back to you"):
+1. Gmail → Settings → Advanced → enable **Templates**.
+2. Compose a reply ("Thank you — your inquiry has reached Hotelway Studios.
+   We'll get back to you within two business days."), then ⋮ → Templates →
+   Save draft as template.
+3. Create another filter on Subject: `Hotelway inquiry` → "Send template".
+   Note: Gmail sends the template to the *reply-to* (the visitor), which is
+   exactly what you want here.
+
+The site itself already confirms on-screen ("Sent — thank you") the moment
+the form goes through, so the auto-reply is a nice-to-have, not load-bearing.
+
 ## Before first publish
 
 - [x] Contact email → hotelwaystudios@gmail.com

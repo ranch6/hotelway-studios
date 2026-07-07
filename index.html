@@ -39,7 +39,9 @@
     perspective: 1400px; perspective-origin: 50% 50%;
     display: flex; align-items: center; justify-content: center;
     min-height: 0;
+    cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none;
   }
+  .stage.dragging { cursor: grabbing; }
   .card {
     position: absolute; left: 50%; top: 50%;
     width: min(240px, 22vw); aspect-ratio: 4 / 5;
@@ -52,6 +54,7 @@
     background: #fff;
   }
   .card img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+  .card { -webkit-user-drag: none; }
   .card.blank {
     background: var(--linen);
     border: 1px solid var(--stone-soft);
@@ -91,6 +94,14 @@
     color: var(--ink-soft); text-decoration: none; transition: color 0.3s;
   }
   .enter:hover { color: var(--magenta); }
+  .joined {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 1.2rem; color: var(--ink);
+  }
+  .access-err {
+    display: block; margin-top: 12px; font-size: 0.72rem;
+    letter-spacing: 0.1em; color: var(--magenta);
+  }
 
   @media (max-width: 640px) {
     .corner-tl { left: 22px; }
@@ -138,7 +149,12 @@
   let last = performance.now();
 
   const SPEED = 0.14;             // cards per second
-  function cardWidth() { return Math.min(240, innerWidth * (innerWidth <= 640 ? 0.34 : 0.22)); }
+  function cardWidth() {
+    // Hidden/unsized frames can report width 0 — fall back so the deck
+    // never collapses to a single stack.
+    const w = innerWidth || document.documentElement.clientWidth || 1200;
+    return Math.min(240, w * (w <= 640 ? 0.34 : 0.22));
+  }
 
   function layout() {
     const now = performance.now();
@@ -177,15 +193,69 @@
 
   cards.forEach(card => {
     card.addEventListener('mouseenter', () => { hovered = card; paused = true; });
-    card.addEventListener('mouseleave', () => { hovered = null; paused = false; });
+    card.addEventListener('mouseleave', () => { hovered = null; if (!dragging) paused = false; });
   });
 
-  document.getElementById('access').addEventListener('submit', (e) => {
+  // Drag-to-scrub (pointer events cover both touch and mouse).
+  const stage = document.getElementById('stage');
+  let dragging = false, dragMoved = 0, lastX = 0, resumeTimer = null;
+  stage.addEventListener('pointerdown', (e) => {
+    dragging = true; dragMoved = 0; lastX = e.clientX;
+    paused = true; clearTimeout(resumeTimer);
+    stage.classList.add('dragging');
+  });
+  window.addEventListener('pointermove', (e) => {
+    if (!dragging) return;
+    const dx = e.clientX - lastX; lastX = e.clientX;
+    dragMoved += Math.abs(dx);
+    const spacing = cardWidth() * 1.18;
+    offset = (((offset - dx / spacing) % N) + N) % N;
+  });
+  window.addEventListener('pointerup', () => {
+    if (!dragging) return;
+    dragging = false;
+    stage.classList.remove('dragging');
+    resumeTimer = setTimeout(() => { if (!hovered) paused = false; }, 900);
+  });
+  // A drag shouldn't count as a click on a card link.
+  stage.addEventListener('click', (e) => {
+    if (dragMoved > 8) { e.preventDefault(); e.stopPropagation(); }
+  }, true);
+
+  // Early-access list capture via Formspree. Until the form ID is set
+  // (see DEPLOY.md), fall back to a pre-filled email so the line still works.
+  const JOIN_ENDPOINT = 'https://formspree.io/f/YOUR_JOIN_FORM_ID';
+  const accessForm = document.getElementById('access');
+  accessForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const v = document.getElementById('email').value.trim();
-    const subject = encodeURIComponent('Hotelway Studios — early access');
-    const body = encodeURIComponent(v ? `Please add ${v} to the list.` : 'Please add me to the list.');
-    location.href = `mailto:hotelwaystudios@gmail.com?subject=${subject}&body=${body}`;
+    const input = document.getElementById('email');
+    const v = input.value.trim();
+    if (!v || !input.checkValidity()) { input.reportValidity(); return; }
+    if (JOIN_ENDPOINT.includes('YOUR_JOIN_FORM_ID')) {
+      const subject = encodeURIComponent('Hotelway Studios — early access');
+      const body = encodeURIComponent(`Please add ${v} to the list.`);
+      location.href = `mailto:hotelwaystudios@gmail.com?subject=${subject}&body=${body}`;
+      return;
+    }
+    const btn = accessForm.querySelector('button');
+    btn.textContent = '…';
+    try {
+      const res = await fetch(JOIN_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: v, _subject: 'Hotelway — early access signup' })
+      });
+      if (!res.ok) throw new Error();
+      accessForm.outerHTML = '<p class="joined">You&rsquo;re on the list &mdash; thank you.</p>';
+    } catch {
+      btn.textContent = 'Join';
+      if (!accessForm.querySelector('.access-err')) {
+        const err = document.createElement('span');
+        err.className = 'access-err';
+        err.textContent = 'Something went wrong — email us at hotelwaystudios@gmail.com';
+        accessForm.after(err);
+      }
+    }
   });
 </script>
 

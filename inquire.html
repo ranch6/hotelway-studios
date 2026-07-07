@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inquire — Hotelway Studios</title>
+<meta name="description" content="Start a project with Hotelway Studios — faceless POV photo and short-form video for hotels and stays.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --linen: #faf7f1;
+    --linen-deep: #f3eee4;
+    --cream: #fffdf8;
+    --stone-soft: #cfc8bb;
+    --ink: #2b2721;
+    --ink-soft: #6b6357;
+    --accent: #8a7a63;
+    --magenta: #c9407e;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Inter', -apple-system, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--linen); color: var(--ink);
+    font-family: var(--sans); font-weight: 300; line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh; display: flex; flex-direction: column;
+  }
+  nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 28px; border-bottom: 1px solid var(--linen-deep);
+  }
+  .wordmark {
+    font-family: var(--serif); font-size: 1.15rem; letter-spacing: 0.28em;
+    text-transform: uppercase; text-decoration: none; color: var(--ink);
+  }
+  nav .links a {
+    font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-soft); text-decoration: none; margin-left: 28px; transition: color 0.3s;
+  }
+  nav .links a:hover { color: var(--ink); }
+
+  main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 70px 28px; }
+  .panel { width: 100%; max-width: 600px; }
+  .eyebrow {
+    font-size: 0.7rem; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 20px; font-weight: 400;
+  }
+  h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 5vw, 2.9rem); line-height: 1.15; margin-bottom: 14px; }
+  .lede { color: var(--ink-soft); font-size: 0.98rem; max-width: 480px; margin-bottom: 48px; }
+
+  form { display: grid; gap: 34px; }
+  .row { display: grid; gap: 34px; grid-template-columns: 1fr 1fr; }
+  @media (max-width: 560px) { .row { grid-template-columns: 1fr; } }
+  .field label {
+    display: block; font-size: 0.66rem; letter-spacing: 0.24em;
+    text-transform: uppercase; color: var(--ink-soft); margin-bottom: 10px;
+  }
+  .field label em { font-style: italic; text-transform: none; letter-spacing: 0.05em; font-family: var(--serif); }
+  .field input, .field textarea {
+    width: 100%; border: none; border-bottom: 1px solid var(--stone-soft);
+    background: transparent; outline: none; padding: 6px 0 10px;
+    font-family: var(--serif); font-size: 1.15rem; color: var(--ink);
+    border-radius: 0; transition: border-color 0.3s;
+  }
+  .field textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
+  .field input:focus, .field textarea:focus { border-color: var(--ink); }
+  .field input::placeholder, .field textarea::placeholder { color: var(--stone-soft); font-style: italic; }
+
+  .send {
+    justify-self: start; border: none; cursor: pointer;
+    background: var(--ink); color: var(--linen);
+    font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.22em;
+    text-transform: uppercase; padding: 16px 44px; transition: background 0.35s;
+  }
+  .send:hover { background: var(--magenta); }
+  .send:disabled { opacity: 0.55; cursor: default; }
+  .form-err { font-size: 0.78rem; color: var(--magenta); letter-spacing: 0.06em; }
+  .form-err a { color: inherit; }
+
+  .sent { display: none; text-align: center; padding: 40px 0 60px; }
+  .sent .big {
+    font-family: var(--serif); font-size: clamp(2.2rem, 5vw, 3.2rem);
+    line-height: 1.15; margin-bottom: 16px;
+  }
+  .sent .big em { font-style: italic; color: var(--magenta); }
+  .sent p { color: var(--ink-soft); max-width: 420px; margin: 0 auto 40px; }
+  .sent a {
+    font-size: 0.7rem; letter-spacing: 0.26em; text-transform: uppercase;
+    color: var(--ink-soft); text-decoration: none; transition: color 0.3s;
+  }
+  .sent a:hover { color: var(--magenta); }
+
+  footer {
+    border-top: 1px solid var(--linen-deep); padding: 28px;
+    font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-soft); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="wordmark" href="index.html">Hotelway</a>
+  <div class="links">
+    <a href="studio.html">Studio</a>
+    <a href="studio.html#work">Work</a>
+    <a href="studio.html#packages">Packages</a>
+  </div>
+</nav>
+
+<main>
+  <div class="panel">
+    <div id="form-view">
+      <p class="eyebrow">Inquiries</p>
+      <h1>Tell us about the property.</h1>
+      <p class="lede">A few lines is plenty — where you are, what you're hoping for, and any dates in mind. We reply within two business days.</p>
+      <form id="inquiry" novalidate>
+        <div class="row">
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" placeholder="your name" required autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="iemail">Email</label>
+            <input id="iemail" name="email" type="email" placeholder="you@property.com" required autocomplete="email">
+          </div>
+        </div>
+        <div class="field">
+          <label for="phone">Phone <em>— optional</em></label>
+          <input id="phone" name="phone" type="tel" placeholder="+1 …" autocomplete="tel">
+        </div>
+        <div class="field">
+          <label for="message">Inquiry</label>
+          <textarea id="message" name="message" placeholder="The property, the goal, rough timing…" required></textarea>
+        </div>
+        <button class="send" type="submit">Send</button>
+        <span class="form-err" id="form-err" hidden>Something went wrong — please email us directly at <a href="mailto:hotelwaystudios@gmail.com">hotelwaystudios@gmail.com</a>.</span>
+      </form>
+    </div>
+
+    <div class="sent" id="sent-view">
+      <div class="big">Sent &mdash; <em>thank you.</em></div>
+      <p>Your inquiry is in our inbox. We'll get back to you within two business days.</p>
+      <a href="studio.html">Back to the studio &rarr;</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <span>&copy; 2026 Hotelway Studios</span>
+  <span>New York &middot; Available Worldwide</span>
+</footer>
+
+<script>
+  // Sends via Formspree once the form ID is configured (see DEPLOY.md).
+  // Until then, falls back to opening a pre-filled email so nothing dead-ends.
+  const INQUIRY_ENDPOINT = 'https://formspree.io/f/YOUR_INQUIRY_FORM_ID';
+  const form = document.getElementById('inquiry');
+  const err = document.getElementById('form-err');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    err.hidden = true;
+    for (const el of form.querySelectorAll('[required]')) {
+      if (!el.checkValidity()) { el.reportValidity(); return; }
+    }
+    const data = {
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      phone: form.phone.value.trim() || '(not provided)',
+      message: form.message.value.trim(),
+      _subject: `Hotelway inquiry — ${form.name.value.trim()}`,
+      _replyto: form.email.value.trim()
+    };
+    if (INQUIRY_ENDPOINT.includes('YOUR_INQUIRY_FORM_ID')) {
+      const body = encodeURIComponent(
+        `Name: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone}\n\n${data.message}`);
+      location.href = `mailto:hotelwaystudios@gmail.com?subject=${encodeURIComponent(data._subject)}&body=${body}`;
+      showSent();
+      return;
+    }
+    const btn = form.querySelector('.send');
+    btn.disabled = true; btn.textContent = 'Sending…';
+    try {
+      const res = await fetch(INQUIRY_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (!res.ok) throw new Error();
+      showSent();
+    } catch {
+      btn.disabled = false; btn.textContent = 'Send';
+      err.hidden = false;
+    }
+  });
+
+  function showSent() {
+    document.getElementById('form-view').style.display = 'none';
+    document.getElementById('sent-view').style.display = 'block';
+  }
+</script>
+
+</body>
+</html>
