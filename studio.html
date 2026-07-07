@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hotelway Studios — Faceless POV Hospitality Content</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23a7b1dc'/%3E%3Cpath d='M20 52L20 30Q20 18 32 18Q44 18 44 30L44 52Z' fill='%23faf7f1'/%3E%3C/svg%3E">
+<meta property="og:title" content="Hotelway Studios — Faceless POV Hospitality Content">
+<meta property="og:description" content="Cinematic, faceless photo and short-form video for hotels and stays. One quiet day on property; films and stills delivered in two weeks.">
+<meta property="og:type" content="website">
+<!-- TODO once the domain is live: <meta property="og:image" content="https://YOURDOMAIN/assets/cover-room.jpg"> -->
 <meta name="description" content="Cinematic, faceless photo and short-form video for hotels and stays. POV guest-experience storytelling from a New York–based studio.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -61,7 +66,11 @@
     transition: color 0.3s;
   }
   .nav-links a:hover { color: var(--ink); }
-  @media (max-width: 640px) { .nav-links a { margin-left: 16px; font-size: 0.64rem; } }
+  @media (max-width: 640px) {
+    .nav-inner { flex-direction: column; align-items: flex-start; gap: 12px; padding: 16px 22px; }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+    .nav-links a { margin-left: 0; font-size: 0.64rem; }
+  }
 
   /* ---------- shared ---------- */
   section { padding: 110px 0; }
@@ -139,6 +148,18 @@
   .service p { color: var(--ink-soft); font-size: 0.92rem; }
   .service .s-tag { font-size: 0.64rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--magenta); display: block; margin-bottom: 18px; }
 
+  /* ---------- motion ---------- */
+  #motion { background: var(--cream); }
+  .motion-wrap { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 64px; align-items: center; }
+  @media (max-width: 760px) { .motion-wrap { grid-template-columns: 1fr; gap: 44px; } }
+  .phone {
+    width: min(250px, 64vw); aspect-ratio: 9 / 16; border-radius: 30px;
+    overflow: hidden; border: 1px solid var(--stone-soft);
+    box-shadow: 0 24px 60px rgba(43, 39, 33, 0.16);
+    justify-self: center; background: var(--linen-deep);
+  }
+  .phone video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
   /* ---------- packages ---------- */
   .packages-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 56px; }
   @media (max-width: 820px) { .packages-grid { grid-template-columns: 1fr; } }
@@ -199,7 +220,7 @@
 
 <nav>
   <div class="nav-inner">
-    <a class="wordmark" href="#top">Hotelway</a>
+    <a class="wordmark" href="index.html">Hotelway</a>
     <div class="nav-links">
       <a href="#work">Work</a>
       <a href="#services">Services</a>
@@ -216,7 +237,7 @@
   <p>Cinematic, faceless photo and short-form video for hotels and considered stays. We shoot the guest's point of view — arrival to checkout — so travelers don't just see your property. They feel themselves in it.</p>
   <div class="hero-ctas">
     <a class="btn btn-solid" href="#work">View Work</a>
-    <a class="btn btn-ghost" href="#contact">Start a Project</a>
+    <a class="btn btn-ghost" href="inquire.html">Start a Project</a>
   </div>
 </header>
 
@@ -271,6 +292,19 @@
       </figure>
     </div>
     <p class="work-note reveal">Studio series — new location work published monthly. Full case studies available on request.</p>
+  </div>
+</section>
+
+<section id="motion">
+  <div class="wrap motion-wrap">
+    <div class="motion-copy">
+      <p class="eyebrow reveal">In Motion</p>
+      <h2 class="reveal">Three seconds is enough to feel it.</h2>
+      <p class="lede reveal">A study in the house style — slow push-ins, natural palettes, a stay compressed to its essence. Every engagement delivers vertical films like this, cut natively for Reels and TikTok and sized for every placement your team runs.</p>
+    </div>
+    <div class="phone reveal">
+      <video src="assets/hotelway-teaser.mp4" poster="assets/cover-room.jpg" autoplay muted loop playsinline></video>
+    </div>
   </div>
 </section>
 
@@ -450,6 +484,7 @@
     <h2 class="reveal">A small studio with a narrow obsession.</h2>
     <p class="reveal">Hotelway Studios is a New York–based creative studio focused on one thing: how a stay feels from the guest's side of the door. We make faceless, POV-driven photo and video for hotels, boutique properties, and considered short-term stays.</p>
     <p class="reveal">We keep the work quiet on purpose — no loud branding, no influencer theatrics. Just the light in the room, the weight of the key, and the version of your property that guests describe to their friends.</p>
+    <p class="reveal">You work directly with the studio's founder from scout to delivery — one point of contact, one consistent eye, no handoffs.</p>
   </div>
 </section>
 
@@ -457,7 +492,7 @@
   <div class="wrap">
     <p class="eyebrow reveal">Collaborations &amp; Inquiries</p>
     <h2 class="reveal">Let's show people the stay.</h2>
-    <p class="lede reveal">Hotels, boutique stays, and hospitality brands — for availability, rates, or a content partnership, reach out. We respond within two business days.</p>
+    <p class="lede reveal">Hotels, boutique stays, and hospitality brands — for availability, rates, or a content partnership, reach out. We respond within two business days. <em>Now booking — autumn 2026.</em></p>
     <div class="contact-links reveal">
       <a class="btn btn-solid" href="inquire.html">Send an Inquiry</a>
       <a class="btn btn-ghost" href="mailto:hotelwaystudios@gmail.com">Email the Studio</a>
@@ -515,6 +550,19 @@
     const target = location.hash && document.querySelector(location.hash);
     if (target) ensureArrival(target);
   });
+  // Arriving with a hash already in the URL (e.g. a shared link).
+  if (location.hash) {
+    const target = document.querySelector(location.hash);
+    if (target) ensureArrival(target);
+  }
+
+  // Some environments ignore the autoplay attribute even for muted video —
+  // nudge playback on load and again on first interaction.
+  const teaser = document.querySelector('#motion video');
+  function nudgePlay() { if (teaser && teaser.paused) teaser.play().catch(() => {}); }
+  nudgePlay();
+  window.addEventListener('scroll', nudgePlay, { once: true, passive: true });
+  window.addEventListener('pointerdown', nudgePlay, { once: true });
 </script>
 
 </body>

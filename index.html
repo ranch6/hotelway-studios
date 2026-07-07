@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hotelway Studios</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23a7b1dc'/%3E%3Cpath d='M20 52L20 30Q20 18 32 18Q44 18 44 30L44 52Z' fill='%23faf7f1'/%3E%3C/svg%3E">
+<meta property="og:title" content="Hotelway Studios">
+<meta property="og:description" content="Faceless POV hospitality content — cinematic photo and short-form video for hotels and stays. Portfolio in progress; now booking autumn 2026.">
+<meta property="og:type" content="website">
+<!-- TODO once the domain is live: <meta property="og:image" content="https://YOURDOMAIN/assets/cover-room.jpg"> -->
 <meta name="description" content="Hotelway Studios — faceless POV hospitality content. Portfolio in progress.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -105,7 +110,7 @@
 
   @media (max-width: 640px) {
     .corner-tl { left: 22px; }
-    .corner-tr { right: 22px; }
+    .corner-tr { right: 22px; top: 72px; }
     .card { width: 34vw; margin: calc(34vw * -0.625) 0 0 calc(34vw * -0.5); }
   }
 </style>
@@ -113,7 +118,7 @@
 <body>
 
 <div class="corner corner-tl">HOTELWAY&nbsp;STUDIOS</div>
-<div class="corner corner-tr">Portfolio in progress<br>New York</div>
+<div class="corner corner-tr">Portfolio in progress<br>New York<br>Now booking — autumn 2026</div>
 
 <div class="stage" id="stage">
   <a class="card" href="studio.html"><img src="assets/tile-arrival.svg" alt="Arrival — illustrated door"></a>
@@ -136,6 +141,7 @@
   </form>
   <br>
   <a class="enter" href="studio.html">Enter the studio &rarr;</a>
+  <a class="enter" style="margin-left: 34px;" href="inquire.html">Inquiries &rarr;</a>
 </div>
 
 <script>
@@ -148,7 +154,8 @@
   let hovered = null;
   let last = performance.now();
 
-  const SPEED = 0.14;             // cards per second
+  // Respect reduced-motion preferences: the deck holds still (drag still works).
+  const SPEED = matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 0.14;  // cards per second
   function cardWidth() {
     // Hidden/unsized frames can report width 0 — fall back so the deck
     // never collapses to a single stack.
