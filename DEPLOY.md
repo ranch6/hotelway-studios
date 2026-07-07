@@ -1,5 +1,23 @@
 # Deploying Hotelway Studios
 
+## ⚡ Fastest launch (5 min, free forever, free subdomain)
+
+The site is 100% ready to serve — no build step. Two equally good paths:
+
+**Path A — Netlify Drop (2 min, no git):** app.netlify.com → sign up free →
+"Deploy manually" → drag the `hotelway-studios` folder in. Live instantly at
+`hotelway-studios.netlify.app` (rename the site in Site settings → change
+site name). Re-drag the folder to update.
+
+**Path B — Vercel + GitHub (5 min, auto-deploys forever):** the original plan
+below — push to a private GitHub repo, import in Vercel, live at
+`hotelway-studios.vercel.app`, and every future `git push` updates the site.
+Do this one when you want the private-edit → publish workflow.
+
+Either way the domain is free and permanent. (A custom domain like
+`hotelway.studio` remains a later, ~$12/yr upgrade — it also fixes the
+gmail-address optics and unlocks the OG preview image.)
+
 Goal: a **public published site** + a **private working copy only you can
 edit** (with Claude). The pattern: private GitHub repo → Vercel auto-deploy.
 You edit locally with Claude Code (or on claude.ai/code from anywhere),

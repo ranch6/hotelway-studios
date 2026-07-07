@@ -148,6 +148,27 @@
   .service p { color: var(--ink-soft); font-size: 0.92rem; }
   .service .s-tag { font-size: 0.64rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--magenta); display: block; margin-bottom: 18px; }
 
+  /* ---------- band ---------- */
+  .band { position: relative; height: min(72vh, 620px); overflow: hidden; margin: 0; }
+  .band img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .band figcaption {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    padding: 26px 28px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    color: var(--linen); font-size: 0.66rem; letter-spacing: 0.26em; text-transform: uppercase;
+    background: linear-gradient(transparent, rgba(43, 39, 33, 0.45));
+  }
+
+  /* ---------- lightbox ---------- */
+  .tile { cursor: zoom-in; }
+  .lightbox {
+    position: fixed; inset: 0; z-index: 50; display: none;
+    align-items: center; justify-content: center; flex-direction: column; gap: 18px;
+    background: rgba(43, 39, 33, 0.88); padding: 40px; cursor: zoom-out;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img { max-width: min(920px, 92vw); max-height: 76vh; object-fit: contain; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4); }
+  .lightbox .lb-cap { color: var(--linen); font-family: var(--serif); font-style: italic; font-size: 1.1rem; text-align: center; }
+
   /* ---------- motion ---------- */
   #motion { background: var(--cream); }
   .motion-wrap { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 64px; align-items: center; }
@@ -209,11 +230,25 @@
   #contact .lede { margin: 20px auto 0; }
   .contact-links { margin-top: 44px; display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; }
 
-  footer {
-    border-top: 1px solid var(--linen-deep); padding: 34px 0;
-    font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft);
+  footer { border-top: 1px solid var(--linen-deep); padding: 60px 0 34px; }
+  .foot-grid {
+    display: grid; grid-template-columns: 1.4fr 1fr 1.2fr; gap: 40px; margin-bottom: 48px;
   }
-  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  @media (max-width: 700px) { .foot-grid { grid-template-columns: 1fr; gap: 30px; } }
+  .foot-mark { font-family: var(--serif); font-size: 1rem; letter-spacing: 0.28em; text-transform: uppercase; margin-bottom: 12px; }
+  .foot-blurb { font-size: 0.82rem; color: var(--ink-soft); max-width: 300px; }
+  .foot-links, .foot-meta { display: flex; flex-direction: column; gap: 10px; }
+  .foot-links a, .foot-meta a, .foot-meta span {
+    font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--ink-soft); text-decoration: none; width: fit-content;
+  }
+  .foot-links a:hover, .foot-meta a:hover { color: var(--magenta); }
+  .foot-meta .booking { color: var(--magenta); }
+  .foot-base {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    font-size: 0.64rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft);
+    border-top: 1px solid var(--linen-deep); padding-top: 22px;
+  }
 </style>
 </head>
 <body>
@@ -241,57 +276,65 @@
   </div>
 </header>
 
+<figure class="band">
+  <img src="assets/band-dusk.jpg" alt="White resort architecture and pool at dusk under a periwinkle sky">
+  <figcaption>
+    <span>Location study — dusk</span>
+    <span>The golden hour is the brand</span>
+  </figcaption>
+</figure>
+
 <section id="work">
   <div class="wrap">
     <p class="eyebrow reveal">Selected Work</p>
     <h2 class="reveal">Guest-experience stories, one frame at a time.</h2>
     <p class="lede reveal">Every stay has a narrative arc. We shoot it in sequence — the door, the light, the first coffee — and deliver it as stills and vertical films built for the platforms where travelers actually book.</p>
     <div class="grid">
-      <!-- Illustrated placeholders — swap each <img> for a real still as shoots happen -->
+      <!-- Interim licensed imagery (Unsplash license) — swap for original stills as shoots complete -->
       <figure class="tile reveal">
-        <div class="tile-frame"><img src="assets/tile-arrival.svg" alt="Illustration: arched hotel room door with a magenta doormat"></div>
+        <div class="tile-frame"><img src="assets/work-arrival.jpg" alt="Cream hotel room door numbered 313 with copper key handle"></div>
         <figcaption>
           <div class="t-title">Arrival</div>
           <div class="t-meta">Doorway · Key · First Light</div>
         </figcaption>
       </figure>
       <figure class="tile reveal">
-        <div class="tile-frame"><img src="assets/tile-room.svg" alt="Illustration: hotel bed with window light and mountain view"></div>
+        <div class="tile-frame"><img src="assets/work-room.jpg" alt="Hotel bed in warm cove lighting with linen throw" loading="lazy"></div>
         <figcaption>
           <div class="t-title">The Room</div>
           <div class="t-meta">Bed · Window Light · Linen</div>
         </figcaption>
       </figure>
       <figure class="tile reveal">
-        <div class="tile-frame"><img src="assets/tile-corridor.svg" alt="Illustration: receding hotel corridor arches with a magenta runner"></div>
+        <div class="tile-frame"><img src="assets/work-corridor.jpg" alt="Warm wood hotel corridor with pooled light" loading="lazy"></div>
         <figcaption>
           <div class="t-title">Corridors</div>
           <div class="t-meta">Passage · Symmetry · Quiet</div>
         </figcaption>
       </figure>
       <figure class="tile reveal">
-        <div class="tile-frame"><img src="assets/tile-morning.svg" alt="Illustration: morning coffee cup with steam"></div>
+        <div class="tile-frame"><img src="assets/work-morning.jpg" alt="Breakfast tray with coffee and pastries on white hotel linen" loading="lazy"></div>
         <figcaption>
           <div class="t-title">Morning</div>
           <div class="t-meta">Coffee · Breakfast · Slow Start</div>
         </figcaption>
       </figure>
       <figure class="tile reveal">
-        <div class="tile-frame"><img src="assets/tile-lobby.svg" alt="Illustration: lobby arches with pendant lamp and bench"></div>
+        <div class="tile-frame"><img src="assets/work-lobby.jpg" alt="Boutique lobby with wood slat walls and sculptural furniture" loading="lazy"></div>
         <figcaption>
           <div class="t-title">Common Spaces</div>
           <div class="t-meta">Lobby · Lounge · Texture</div>
         </figcaption>
       </figure>
       <figure class="tile reveal">
-        <div class="tile-frame"><img src="assets/tile-view.svg" alt="Illustration: window view of mountains and a lake"></div>
+        <div class="tile-frame"><img src="assets/work-view.jpg" alt="Curved cream balcony overlooking the sea at golden hour" loading="lazy"></div>
         <figcaption>
           <div class="t-title">The View</div>
           <div class="t-meta">What You Wake Up To</div>
         </figcaption>
       </figure>
     </div>
-    <p class="work-note reveal">Studio series — new location work published monthly. Full case studies available on request.</p>
+    <p class="work-note reveal">Interim frames — licensed reference imagery in the house direction while the studio series is in production. Original location studies replace these monthly; client case studies publish as they complete.</p>
   </div>
 </section>
 
@@ -502,9 +545,26 @@
 </section>
 
 <footer>
-  <div class="wrap">
-    <span>© 2026 Hotelway Studios</span>
-    <span>New York · Available Worldwide</span>
+  <div class="wrap foot-grid">
+    <div>
+      <div class="foot-mark">Hotelway Studios</div>
+      <p class="foot-blurb">Faceless POV photo &amp; film for hotels and considered stays. The viewer becomes the guest.</p>
+    </div>
+    <div class="foot-links">
+      <a href="index.html">Cover</a>
+      <a href="#work">Work</a>
+      <a href="#packages">Packages</a>
+      <a href="inquire.html">Inquire</a>
+    </div>
+    <div class="foot-meta">
+      <a href="mailto:hotelwaystudios@gmail.com">hotelwaystudios@gmail.com</a>
+      <a href="https://instagram.com/hotelwaystudios" target="_blank" rel="noopener">@hotelwaystudios</a>
+      <span class="booking">Now booking — autumn 2026</span>
+    </div>
+  </div>
+  <div class="wrap foot-base">
+    <span>© 2026 Hotelway Studios · New York</span>
+    <span>Interim imagery licensed via Unsplash</span>
   </div>
 </footer>
 
@@ -555,6 +615,26 @@
     const target = document.querySelector(location.hash);
     if (target) ensureArrival(target);
   }
+
+  // Lightbox: click any work tile to view it large; click anywhere or Esc to close.
+  const lb = document.createElement('div');
+  lb.className = 'lightbox';
+  lb.innerHTML = '<img alt=""><div class="lb-cap"></div>';
+  document.body.appendChild(lb);
+  document.querySelectorAll('.tile').forEach(t => {
+    t.addEventListener('click', () => {
+      const img = t.querySelector('img');
+      lb.querySelector('img').src = img.src;
+      lb.querySelector('img').alt = img.alt;
+      lb.querySelector('.lb-cap').textContent =
+        t.querySelector('.t-title').textContent + ' — ' + t.querySelector('.t-meta').textContent.toLowerCase();
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  function closeLightbox() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+  lb.addEventListener('click', closeLightbox);
+  window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
 
   // Some environments ignore the autoplay attribute even for muted video —
   // nudge playback on load and again on first interaction.
