@@ -91,7 +91,7 @@
     font-size: clamp(2.6rem, 6.5vw, 4.6rem);
     line-height: 1.08; letter-spacing: -0.01em; max-width: 800px;
   }
-  .hero h1 em { font-style: italic; color: var(--gold); }
+  .hero h1 em { font-style: italic; }
   .hero p { max-width: 540px; margin-top: 28px; color: var(--ink-soft); font-size: 1.05rem; }
   .hero-ctas { margin-top: 44px; display: flex; gap: 18px; flex-wrap: wrap; }
   .btn {
@@ -152,7 +152,7 @@
 
   /* ---------- band ---------- */
   .band { position: relative; height: min(72vh, 620px); overflow: hidden; margin: 0; }
-  .band img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .band img, .band video { width: 100%; height: 100%; object-fit: cover; display: block; }
   .band figcaption {
     position: absolute; left: 0; right: 0; bottom: 0;
     padding: 26px 28px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
@@ -165,7 +165,7 @@
   .ethos-quote {
     font-family: var(--serif); font-style: italic; font-weight: 400;
     font-size: clamp(1.7rem, 3.8vw, 2.7rem); line-height: 1.35;
-    max-width: 840px; margin: 26px auto 42px;
+    max-width: 840px; margin: 26px auto 42px; color: var(--ink);
   }
   .ethos-body { max-width: 620px; margin: 0 auto 52px; color: var(--ink-soft); font-size: 0.98rem; }
 
@@ -311,10 +311,10 @@
 </header>
 
 <figure class="band">
-  <img src="assets/band-dusk.jpg" alt="White resort architecture and pool at dusk under a violet dusk sky">
+  <video src="assets/band-waves.mp4" poster="assets/band-waves-poster.jpg" autoplay muted loop playsinline></video>
   <figcaption>
-    <span>Location study — dusk</span>
-    <span>The golden hour is the brand</span>
+    <span>Location study — the Aegean</span>
+    <span>Shot by the studio</span>
   </figcaption>
 </figure>
 
@@ -349,10 +349,10 @@
         </figcaption>
       </figure>
       <figure class="tile reveal">
-        <div class="tile-frame"><img src="assets/work-morning.jpg" alt="Breakfast tray with coffee and pastries on white hotel linen" loading="lazy"></div>
+        <div class="tile-frame"><img src="assets/own-IMG_1681.jpg" alt="Ochre wall, weathered green table with fruit and spring water above a deep blue sea" loading="lazy"></div>
         <figcaption>
           <div class="t-title">Morning</div>
-          <div class="t-meta">Coffee · Breakfast · Slow Start</div>
+          <div class="t-meta">Fruit · Spring Water · Sea Air</div>
         </figcaption>
       </figure>
       <figure class="tile reveal">
@@ -363,10 +363,10 @@
         </figcaption>
       </figure>
       <figure class="tile reveal">
-        <div class="tile-frame"><img src="assets/work-lobby.jpg" alt="Boutique lobby with wood slat walls and sculptural furniture" loading="lazy"></div>
+        <div class="tile-frame"><img src="assets/own-IMG_1637.jpg" alt="Plastered lounge with beamed ceiling and afternoon sun shafts" loading="lazy"></div>
         <figcaption>
           <div class="t-title">Common Spaces</div>
-          <div class="t-meta">Lobby · Lounge · Texture</div>
+          <div class="t-meta">Plaster · Beams · Afternoon Sun</div>
         </figcaption>
       </figure>
       <figure class="tile reveal">
@@ -377,14 +377,14 @@
         </figcaption>
       </figure>
       <figure class="tile tile-wide reveal">
-        <div class="tile-frame"><img src="assets/work-view.jpg" alt="Curved cream balcony overlooking the sea at golden hour" loading="lazy"></div>
+        <div class="tile-frame"><img src="assets/own-IMG_1678.jpg" alt="Vine-covered pergola terrace with a writing desk overlooking the sea" loading="lazy"></div>
         <figcaption>
           <div class="t-title">The View</div>
           <div class="t-meta">What You Wake Up To</div>
         </figcaption>
       </figure>
     </div>
-    <p class="work-note reveal">Interim frames — licensed reference imagery in the house direction while the studio series is in production. Original location studies replace these monthly; client case studies publish as they complete.</p>
+    <p class="work-note reveal">A mix of studio-shot location work and licensed reference frames in the house direction. Originals replace references as the studio series grows; client case studies publish as they complete.</p>
   </div>
 </section>
 
@@ -392,11 +392,11 @@
   <div class="wrap motion-wrap">
     <div class="motion-copy">
       <p class="eyebrow reveal">In Motion</p>
-      <h2 class="reveal">Three seconds is enough to feel it.</h2>
+      <h2 class="reveal">A few seconds is enough to feel it.</h2>
       <p class="lede reveal">A study in the house style — slow push-ins, natural palettes, a stay compressed to its essence. Every engagement delivers vertical films like this, cut natively for Reels and TikTok and sized for every placement your team runs.</p>
     </div>
     <div class="phone reveal">
-      <video src="assets/hotelway-teaser.mp4" poster="assets/cover-room.jpg" autoplay muted loop playsinline></video>
+      <video src="assets/own-reel.mp4" poster="assets/own-reel-poster.jpg" autoplay muted loop playsinline></video>
     </div>
   </div>
 </section>
@@ -481,7 +481,7 @@
     <a class="btn-outline reveal" href="inquire.html">Inquire for Autumn '26</a>
   </div>
   <div class="exp-img reveal">
-    <img src="assets/split-sunset.jpg" alt="Resort pool and palms under a golden sunset sky" loading="lazy">
+    <img src="assets/own-IMG_1680.jpg" alt="Stone window at golden hour framing the sea and distant hills" loading="lazy">
   </div>
 </section>
 
@@ -626,7 +626,7 @@
   </div>
   <div class="wrap foot-base">
     <span>© 2026 Hotelway Studios · New York</span>
-    <span>Interim imagery licensed via Unsplash</span>
+    <span>Studio location work &middot; some interim frames licensed via Unsplash</span>
   </div>
 </footer>
 
