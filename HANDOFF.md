@@ -105,9 +105,10 @@ studio-shot location work + licensed reference frames.
 
 ## Outstanding — only account-gated items (she must do these)
 
-1. **Launch**: Netlify Drop (drag folder, 2 min, free `*.netlify.app`
-   subdomain) or GitHub private repo + Vercel for push-to-publish. No
-   hosting/git auth exists on her machine; agents cannot create accounts.
+1. ~~**Launch**~~ **DONE (July 10, 2026)**: live at
+   **https://hotelway-studios.vercel.app** — GitHub `ranch6/hotelway-studios`
+   + Vercel push-to-publish; pushing `main` deploys production automatically
+   (SSH auth works on her machine).
 2. **Formspree**: create 2 free forms, paste IDs into index.html + inquire.html.
 3. **Gmail**: filters to auto-label Formspree mail + template auto-reply
    (recipe in DEPLOY.md).
