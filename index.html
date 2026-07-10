@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hotelway Studios</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23a7b1dc'/%3E%3Cpath d='M20 52L20 30Q20 18 32 18Q44 18 44 30L44 52Z' fill='%23faf7f1'/%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%235A6B4D'/%3E%3Cpath d='M20 52L20 30Q20 18 32 18Q44 18 44 30L44 52Z' fill='%23faf7f1'/%3E%3C/svg%3E">
 <meta property="og:title" content="Hotelway Studios">
 <meta property="og:description" content="Faceless POV hospitality content — cinematic photo and short-form video for hotels and stays. Portfolio in progress; now booking autumn 2026.">
 <meta property="og:type" content="website">
@@ -15,12 +15,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --linen: #faf7f1;
-    --linen-deep: #f3eee4;
-    --stone-soft: #cfc8bb;
-    --ink: #2b2721;
-    --ink-soft: #6b6357;
-    --magenta: #c9407e;
+    --linen: #FBF7EB;
+    --linen-deep: #F2EBD5;
+    --stone-soft: #DCD3B4;
+    --ink: #2C2F26;
+    --ink-soft: #6A6D57;
+    --gold: #B98A2F;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { height: 100%; }
@@ -55,7 +55,7 @@
     will-change: transform;
     cursor: pointer;
     transition: box-shadow 0.4s;
-    box-shadow: 0 18px 50px rgba(43, 39, 33, 0.18);
+    box-shadow: 0 18px 50px rgba(44, 47, 38, 0.18);
     background: #fff;
   }
   .card img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
@@ -92,20 +92,20 @@
     text-transform: uppercase; color: var(--ink); padding: 0;
     transition: color 0.3s;
   }
-  .access button:hover { color: var(--magenta); }
+  .access button:hover { color: var(--gold); }
   .enter {
     display: inline-block; margin-top: 26px;
     font-size: 0.66rem; letter-spacing: 0.3em; text-transform: uppercase;
     color: var(--ink-soft); text-decoration: none; transition: color 0.3s;
   }
-  .enter:hover { color: var(--magenta); }
+  .enter:hover { color: var(--gold); }
   .joined {
     font-family: 'Cormorant Garamond', serif; font-style: italic;
     font-size: 1.2rem; color: var(--ink);
   }
   .access-err {
     display: block; margin-top: 12px; font-size: 0.72rem;
-    letter-spacing: 0.1em; color: var(--magenta);
+    letter-spacing: 0.1em; color: var(--gold);
   }
 
   @media (max-width: 640px) {
@@ -129,7 +129,7 @@
   <a class="card blank" href="studio.html"><span>no. 07<br>first location study<br>— coming soon —</span></a>
   <a class="card" href="studio.html"><img src="assets/deck-room.jpg" alt="Classic hotel bed with tufted headboard and warm lamps"></a>
   <a class="card" href="studio.html"><img src="assets/cover-dome.jpg" alt="Teaser still — golden dome"></a>
-  <a class="card" href="studio.html"><img src="assets/band-dusk.jpg" alt="Resort pool at dusk under a periwinkle sky"></a>
+  <a class="card" href="studio.html"><img src="assets/band-dusk.jpg" alt="Resort pool at dusk under a violet dusk sky"></a>
   <a class="card" href="studio.html"><img src="assets/work-view.jpg" alt="Cream balcony overlooking the sea at golden hour"></a>
 </div>
 
@@ -189,8 +189,8 @@
       card.style.opacity = fade.toFixed(3);
       card.style.zIndex = straighten ? 99 : Math.round(50 - Math.abs(d) * 10);
       card.style.boxShadow = straighten
-        ? '0 30px 70px rgba(43,39,33,0.30)'
-        : '0 18px 50px rgba(43,39,33,0.18)';
+        ? '0 30px 70px rgba(44,47,38,0.30)'
+        : '0 18px 50px rgba(44,47,38,0.18)';
     });
   }
   // Timer-driven (not rAF): some embedded viewers never tick

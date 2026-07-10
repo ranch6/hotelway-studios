@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hotelway Studios — Faceless POV Hospitality Content</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23a7b1dc'/%3E%3Cpath d='M20 52L20 30Q20 18 32 18Q44 18 44 30L44 52Z' fill='%23faf7f1'/%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%235A6B4D'/%3E%3Cpath d='M20 52L20 30Q20 18 32 18Q44 18 44 30L44 52Z' fill='%23faf7f1'/%3E%3C/svg%3E">
 <meta property="og:title" content="Hotelway Studios — Faceless POV Hospitality Content">
 <meta property="og:description" content="Cinematic, faceless photo and short-form video for hotels and stays. One quiet day on property; films and stills delivered in two weeks.">
 <meta property="og:type" content="website">
@@ -15,18 +15,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --linen: #faf7f1;
-    --linen-deep: #f3eee4;
-    --cream: #fffdf8;
-    --stone: #a89f91;
-    --stone-soft: #cfc8bb;
-    --ink: #2b2721;
-    --ink-soft: #6b6357;
-    --accent: #8a7a63;
-    --periwinkle: #a7b1dc;
-    --periwinkle-soft: #c5cce9;
-    --butter: #ecdfae;
-    --magenta: #c9407e;
+    --linen: #FBF7EB;
+    --linen-deep: #F2EBD5;
+    --cream: #FFFDF4;
+    --stone: #B5AC8B;
+    --stone-soft: #DCD3B4;
+    --ink: #2C2F26;
+    --ink-soft: #6A6D57;
+    --accent: #857637;
+    --leaf: #AEBB8B;
+    --leaf-soft: #E0E4C8;
+    --lemon: #EAD98C;
+    --gold: #B98A2F;
     --serif: 'Cormorant Garamond', Georgia, serif;
     --sans: 'Inter', -apple-system, sans-serif;
   }
@@ -91,7 +91,7 @@
     font-size: clamp(2.6rem, 6.5vw, 4.6rem);
     line-height: 1.08; letter-spacing: -0.01em; max-width: 800px;
   }
-  .hero h1 em { font-style: italic; color: var(--magenta); }
+  .hero h1 em { font-style: italic; color: var(--gold); }
   .hero p { max-width: 540px; margin-top: 28px; color: var(--ink-soft); font-size: 1.05rem; }
   .hero-ctas { margin-top: 44px; display: flex; gap: 18px; flex-wrap: wrap; }
   .btn {
@@ -100,17 +100,19 @@
     transition: all 0.35s;
   }
   .btn-solid { background: var(--ink); color: var(--linen); }
-  .btn-solid:hover { background: var(--magenta); }
+  .btn-solid:hover { background: var(--gold); }
   .btn-ghost { border: 1px solid var(--stone-soft); color: var(--ink); }
-  .btn-ghost:hover { border-color: var(--magenta); color: var(--magenta); }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
 
   /* ---------- work grid ---------- */
   #work { background: var(--linen-deep); }
   .grid {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 54px;
   }
-  @media (max-width: 820px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 540px) { .grid { grid-template-columns: 1fr; } }
+  .tile-wide { grid-column: span 2; }
+  .tile-wide .tile-frame { aspect-ratio: 163 / 100; }
+  @media (max-width: 820px) { .grid { grid-template-columns: repeat(2, 1fr); } .tile-wide .tile-frame { aspect-ratio: 165 / 100; } }
+  @media (max-width: 540px) { .grid { grid-template-columns: 1fr; } .tile-wide { grid-column: auto; } .tile-wide .tile-frame { aspect-ratio: 4 / 5; } }
   .tile { text-decoration: none; color: inherit; }
   .tile-frame {
     aspect-ratio: 4 / 5; overflow: hidden; position: relative;
@@ -134,10 +136,10 @@
     display: flex; gap: 24px; align-items: baseline;
   }
   .direction-list li:last-child { border-bottom: 1px solid var(--linen-deep); }
-  .direction-list .num { font-family: var(--serif); font-style: italic; color: var(--magenta); min-width: 28px; }
-  #direction { background: var(--periwinkle-soft); }
-  #direction .direction-list li, #direction .direction-list li:last-child { border-color: rgba(43,39,33,0.14); }
-  #direction .swatch div { border-color: rgba(43,39,33,0.12); }
+  .direction-list .num { font-family: var(--serif); font-style: italic; color: var(--gold); min-width: 28px; }
+  #direction { background: var(--leaf-soft); }
+  #direction .direction-list li, #direction .direction-list li:last-child { border-color: rgba(44,47,38,0.14); }
+  #direction .swatch div { border-color: rgba(44,47,38,0.12); }
 
   /* ---------- services ---------- */
   #services { background: var(--cream); }
@@ -146,7 +148,7 @@
   .service { background: var(--cream); padding: 44px 38px; }
   .service h3 { font-size: 1.45rem; margin-bottom: 12px; }
   .service p { color: var(--ink-soft); font-size: 0.92rem; }
-  .service .s-tag { font-size: 0.64rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--magenta); display: block; margin-bottom: 18px; }
+  .service .s-tag { font-size: 0.64rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 18px; }
 
   /* ---------- band ---------- */
   .band { position: relative; height: min(72vh, 620px); overflow: hidden; margin: 0; }
@@ -155,7 +157,39 @@
     position: absolute; left: 0; right: 0; bottom: 0;
     padding: 26px 28px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
     color: var(--linen); font-size: 0.66rem; letter-spacing: 0.26em; text-transform: uppercase;
-    background: linear-gradient(transparent, rgba(43, 39, 33, 0.45));
+    background: linear-gradient(transparent, rgba(44, 47, 38, 0.45));
+  }
+
+  /* ---------- ethos ---------- */
+  #ethos { text-align: center; background: var(--cream); }
+  .ethos-quote {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(1.7rem, 3.8vw, 2.7rem); line-height: 1.35;
+    max-width: 840px; margin: 26px auto 42px;
+  }
+  .ethos-body { max-width: 620px; margin: 0 auto 52px; color: var(--ink-soft); font-size: 0.98rem; }
+
+  /* ---------- experience split ---------- */
+  #experience { display: grid; grid-template-columns: 1fr 1fr; background: var(--ink); color: var(--linen); padding: 0; }
+  .exp-copy {
+    display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+    padding: 110px 64px; max-width: 620px; justify-self: end; width: 100%;
+  }
+  .exp-copy .eyebrow { color: var(--stone-soft); }
+  .exp-copy h2 { color: var(--linen); }
+  .exp-copy p { color: var(--stone-soft); font-size: 0.98rem; margin-bottom: 44px; }
+  .btn-outline {
+    display: inline-block; text-decoration: none; font-size: 0.72rem;
+    letter-spacing: 0.22em; text-transform: uppercase; padding: 16px 36px;
+    border: 1px solid rgba(251, 247, 235, 0.5); color: var(--linen); transition: all 0.35s;
+  }
+  .btn-outline:hover { border-color: var(--linen); background: rgba(251, 247, 235, 0.08); }
+  .exp-img { min-height: 480px; }
+  .exp-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  @media (max-width: 820px) {
+    #experience { grid-template-columns: 1fr; }
+    .exp-copy { padding: 70px 28px; max-width: none; }
+    .exp-img { min-height: 340px; }
   }
 
   /* ---------- lightbox ---------- */
@@ -163,7 +197,7 @@
   .lightbox {
     position: fixed; inset: 0; z-index: 50; display: none;
     align-items: center; justify-content: center; flex-direction: column; gap: 18px;
-    background: rgba(43, 39, 33, 0.88); padding: 40px; cursor: zoom-out;
+    background: rgba(44, 47, 38, 0.88); padding: 40px; cursor: zoom-out;
   }
   .lightbox.open { display: flex; }
   .lightbox img { max-width: min(920px, 92vw); max-height: 76vh; object-fit: contain; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4); }
@@ -176,7 +210,7 @@
   .phone {
     width: min(250px, 64vw); aspect-ratio: 9 / 16; border-radius: 30px;
     overflow: hidden; border: 1px solid var(--stone-soft);
-    box-shadow: 0 24px 60px rgba(43, 39, 33, 0.16);
+    box-shadow: 0 24px 60px rgba(44, 47, 38, 0.16);
     justify-self: center; background: var(--linen-deep);
   }
   .phone video { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -185,7 +219,7 @@
   .packages-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 56px; }
   @media (max-width: 820px) { .packages-grid { grid-template-columns: 1fr; } }
   .package { background: var(--cream); border: 1px solid var(--stone-soft); padding: 40px 34px; display: flex; flex-direction: column; }
-  .package .p-tag { font-size: 0.64rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--magenta); margin-bottom: 16px; }
+  .package .p-tag { font-size: 0.64rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
   .package h3 { font-size: 1.5rem; margin-bottom: 6px; }
   .package .p-for { font-size: 0.82rem; font-style: italic; color: var(--ink-soft); margin-bottom: 22px; }
   .package ul { list-style: none; font-size: 0.88rem; color: var(--ink-soft); flex: 1; }
@@ -204,7 +238,7 @@
     display: flex; justify-content: space-between; align-items: center; gap: 20px;
   }
   .faq-list summary::-webkit-details-marker { display: none; }
-  .faq-list summary::after { content: "+"; font-family: var(--serif); font-size: 1.4rem; color: var(--magenta); transition: transform 0.3s; }
+  .faq-list summary::after { content: "+"; font-family: var(--serif); font-size: 1.4rem; color: var(--gold); transition: transform 0.3s; }
   .faq-list details[open] summary::after { transform: rotate(45deg); }
   .faq-list details p { padding: 0 0 24px; font-size: 0.92rem; color: var(--ink-soft); max-width: 620px; }
 
@@ -218,7 +252,7 @@
   #process { background: var(--linen-deep); }
   .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 56px; }
   @media (max-width: 760px) { .steps { grid-template-columns: 1fr; } }
-  .step .num { font-family: var(--serif); font-style: italic; font-size: 2.2rem; color: var(--magenta); }
+  .step .num { font-family: var(--serif); font-style: italic; font-size: 2.2rem; color: var(--gold); }
   .step h3 { font-size: 1.25rem; margin: 10px 0 8px; }
   .step p { font-size: 0.9rem; color: var(--ink-soft); }
 
@@ -242,8 +276,8 @@
     font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
     color: var(--ink-soft); text-decoration: none; width: fit-content;
   }
-  .foot-links a:hover, .foot-meta a:hover { color: var(--magenta); }
-  .foot-meta .booking { color: var(--magenta); }
+  .foot-links a:hover, .foot-meta a:hover { color: var(--gold); }
+  .foot-meta .booking { color: var(--gold); }
   .foot-base {
     display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
     font-size: 0.64rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft);
@@ -277,12 +311,21 @@
 </header>
 
 <figure class="band">
-  <img src="assets/band-dusk.jpg" alt="White resort architecture and pool at dusk under a periwinkle sky">
+  <img src="assets/band-dusk.jpg" alt="White resort architecture and pool at dusk under a violet dusk sky">
   <figcaption>
     <span>Location study — dusk</span>
     <span>The golden hour is the brand</span>
   </figcaption>
 </figure>
+
+<section id="ethos">
+  <div class="wrap">
+    <p class="eyebrow reveal">Our Ethos</p>
+    <h2 class="ethos-quote reveal">&ldquo;A guest never remembers the room. They remember how it felt to be in it.&rdquo;</h2>
+    <p class="ethos-body reveal">Hotelway was born from a simple observation: travelers don't book square footage — they book a feeling. So we photograph what a stay actually feels like. The weight of the key. Steam rising off the first coffee. The pool at last light. Every frame is crafted to make the viewer feel already checked in.</p>
+    <a class="btn btn-ghost reveal" href="#work">Explore the Work</a>
+  </div>
+</section>
 
 <section id="work">
   <div class="wrap">
@@ -291,25 +334,18 @@
     <p class="lede reveal">Every stay has a narrative arc. We shoot it in sequence — the door, the light, the first coffee — and deliver it as stills and vertical films built for the platforms where travelers actually book.</p>
     <div class="grid">
       <!-- Interim licensed imagery (Unsplash license) — swap for original stills as shoots complete -->
+      <figure class="tile tile-wide reveal">
+        <div class="tile-frame"><img src="assets/deck-room.jpg" alt="Classic hotel suite with tufted headboard, tall window, and warm lamps"></div>
+        <figcaption>
+          <div class="t-title">The Suite</div>
+          <div class="t-meta">Tall Windows · Warm Lamps · Stillness</div>
+        </figcaption>
+      </figure>
       <figure class="tile reveal">
         <div class="tile-frame"><img src="assets/work-arrival.jpg" alt="Cream hotel room door numbered 313 with copper key handle"></div>
         <figcaption>
           <div class="t-title">Arrival</div>
           <div class="t-meta">Doorway · Key · First Light</div>
-        </figcaption>
-      </figure>
-      <figure class="tile reveal">
-        <div class="tile-frame"><img src="assets/work-room.jpg" alt="Hotel bed in warm cove lighting with linen throw" loading="lazy"></div>
-        <figcaption>
-          <div class="t-title">The Room</div>
-          <div class="t-meta">Bed · Window Light · Linen</div>
-        </figcaption>
-      </figure>
-      <figure class="tile reveal">
-        <div class="tile-frame"><img src="assets/work-corridor.jpg" alt="Warm wood hotel corridor with pooled light" loading="lazy"></div>
-        <figcaption>
-          <div class="t-title">Corridors</div>
-          <div class="t-meta">Passage · Symmetry · Quiet</div>
         </figcaption>
       </figure>
       <figure class="tile reveal">
@@ -320,6 +356,13 @@
         </figcaption>
       </figure>
       <figure class="tile reveal">
+        <div class="tile-frame"><img src="assets/work-corridor.jpg" alt="Warm wood hotel corridor with pooled light" loading="lazy"></div>
+        <figcaption>
+          <div class="t-title">Corridors</div>
+          <div class="t-meta">Passage · Symmetry · Quiet</div>
+        </figcaption>
+      </figure>
+      <figure class="tile reveal">
         <div class="tile-frame"><img src="assets/work-lobby.jpg" alt="Boutique lobby with wood slat walls and sculptural furniture" loading="lazy"></div>
         <figcaption>
           <div class="t-title">Common Spaces</div>
@@ -327,6 +370,13 @@
         </figcaption>
       </figure>
       <figure class="tile reveal">
+        <div class="tile-frame"><img src="assets/work-night.jpg" alt="Dim hotel bedroom at night, single reading lamp over the bed" loading="lazy"></div>
+        <figcaption>
+          <div class="t-title">Nightfall</div>
+          <div class="t-meta">Turn-Down · Lamplight · Hush</div>
+        </figcaption>
+      </figure>
+      <figure class="tile tile-wide reveal">
         <div class="tile-frame"><img src="assets/work-view.jpg" alt="Curved cream balcony overlooking the sea at golden hour" loading="lazy"></div>
         <figcaption>
           <div class="t-title">The View</div>
@@ -355,13 +405,13 @@
   <div class="wrap">
     <p class="eyebrow reveal">Visual Direction</p>
     <h2 class="reveal">Quiet luxury, in practice.</h2>
-    <p class="lede reveal">A restrained, editorial standard applied to every property we shoot. Warm creams, soft periwinkle, one confident pop of color — natural light and unhurried pacing, imagery that feels like the stay itself.</p>
+    <p class="lede reveal">A restrained, editorial standard applied to every property we shoot. Sun-washed ivory, foliage green, one gilded accent — natural light and unhurried pacing, imagery that feels like an afternoon in the garden.</p>
     <div class="swatches reveal">
-      <div class="swatch"><div style="background:#faf7f1"></div><span>Linen</span></div>
-      <div class="swatch"><div style="background:#ecdfae"></div><span>Butter</span></div>
-      <div class="swatch"><div style="background:#a7b1dc"></div><span>Periwinkle</span></div>
-      <div class="swatch"><div style="background:#c9407e"></div><span>Magenta</span></div>
-      <div class="swatch"><div style="background:#2b2721"></div><span>Ink</span></div>
+      <div class="swatch"><div style="background:#FBF7EB"></div><span>Ivory</span></div>
+      <div class="swatch"><div style="background:#EAD98C"></div><span>Lemon</span></div>
+      <div class="swatch"><div style="background:#5A6B4D"></div><span>Foliage</span></div>
+      <div class="swatch"><div style="background:#B98A2F"></div><span>Sun Gold</span></div>
+      <div class="swatch"><div style="background:#2C2F26"></div><span>Ink</span></div>
     </div>
     <ul class="direction-list reveal">
       <li><span class="num">01</span><span>No faces, no talking, no voiceover — the viewer is the guest.</span></li>
@@ -420,6 +470,18 @@
         <p>Quiet, minimal content doesn't chase trends, so it doesn't expire with them. One shoot feeds your channels for seasons, organic and paid alike.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="exp-copy">
+    <p class="eyebrow reveal">The Sensory Arc</p>
+    <h2 class="reveal">Beyond the room.</h2>
+    <p class="reveal">A stay is a sequence of small sensations — the door easing open, linen against the light, the courtyard settling at dusk. We shoot that full arc of feeling in order, so your guests experience the stay before they ever arrive. That is what they book.</p>
+    <a class="btn-outline reveal" href="inquire.html">Inquire for Autumn '26</a>
+  </div>
+  <div class="exp-img reveal">
+    <img src="assets/split-sunset.jpg" alt="Resort pool and palms under a golden sunset sky" loading="lazy">
   </div>
 </section>
 
