@@ -63,18 +63,29 @@ studio-shot location work + licensed reference frames.
 - `own-IMG_*.jpg` — **Rachel's own photos** (converted from HEIC via `sips`):
   1637 plaster lounge (Common Spaces tile), 1678 pergola sea desk (The View),
   1679 stone villa pool (cover deck; has small figures), 1680 stone window
-  sunset (split-panel image; also cover deck), 1681 ochre table + sea (Morning).
-- `own-reel.mp4` — **her footage**: 3 clips stitched (taverna arrival → boat
-  door → Santorini path), ~8s 1080×1920; plays in the In Motion phone frame.
+  sunset (split-panel image; also cover deck), 1681 ochre table + sea
+  (Morning tile; also replaced the illustrated Morning card in the cover deck).
+- `own-reel.mp4` — **her footage**: 3 clips stitched (taverna arrival →
+  Santorini sunset path → sea view), ~8s 1080×1920 vertical; plays in the
+  In Motion phone frame. **Gotcha:** iPhone MOVs store a landscape sensor
+  buffer plus a ±90° displaymatrix rotation flag. An earlier stitch copied
+  that flag onto the already-upright output, so browsers spun the reel
+  sideways — fixed July 10, 2026 by stripping the flag losslessly
+  (`ffmpeg -display_rotation 0 -i in.mp4 -c copy out.mp4`). When
+  re-stitching from raw MOVs, always check the output with
+  `ffmpeg -i file 2>&1 | grep -i rotation` — it should report none.
 - `band-waves.mp4` — **her footage**: Aegean waves loop, hero band video.
 - Raw originals (`*.heic`, `*.MOV`) stay on disk but are **gitignored**.
-- `work-*.jpg`, `deck-room.jpg`, `split-sunset.jpg`, `band-dusk.jpg` —
-  Unsplash (free commercial license, no attribution required) interim frames,
-  labeled as licensed reference on-site; replace with originals over time.
-- `tile-*.svg` — hand-built flat illustrations, recolored to Limonaia.
-- `hotelway-teaser.mp4` + `cover-*.jpg` — generated illustrated teaser +
-  stills (old palette; still used as cover-deck cards; regenerate via
-  `tools/make_teaser.py` if wanted).
+- `work-*.jpg`, `deck-room.jpg`, `split-sunset.jpg` — Unsplash (free
+  commercial license, no attribution required) interim frames, labeled as
+  licensed reference on-site; replace with originals over time.
+- **Gotcha:** the July 10 media commit deleted the old illustrated assets
+  (`tile-*.svg`, `cover-*.jpg`, `hotelway-teaser.mp4`, `band-dusk.jpg`,
+  `work-arrival.jpg`, `work-corridor.jpg`) but left references in both pages
+  — six broken images. Fixed later that day: cover deck + work grid now use
+  only files that exist (own photos + remaining Unsplash frames; "Corridors"
+  tile became "Poolside" on `split-sunset.jpg`). The old teaser can be
+  regenerated via `tools/make_teaser.py` if ever wanted.
 
 ## Functionality status (all verified in browser)
 
