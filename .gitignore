@@ -3,5 +3,5 @@
 *.HEIC
 *.MOV
 *.mov
-*.JPG
-*.jpeg
+IMG_*.JPG
+IMG_*.jpeg
