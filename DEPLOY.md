@@ -82,36 +82,74 @@ address as reply-to, and inquiries are also stored in the Formspree dashboard.
 The Formspree dashboard can export all submissions as a CSV — that's your
 mailing-list dump on the free plan.
 
-## Mailing list alternative — Google Sheet dump (free, unlimited, ~10 min)
+## Mailing list + welcome email workflow (free, unlimited, ~15 min)
 
-If you'd rather have Join emails land in a spreadsheet automatically
-(a real mailing list, no monthly cap), the JOIN endpoint also accepts a
-Google Apps Script URL:
+One Google Sheet + Apps Script runs the whole thing: Join emails land in
+a `Subscribers` tab and get a branded welcome email within seconds;
+inquiry-form submissions land in an `Inquiries` tab and are forwarded to
+the studio inbox. The full script (including the welcome email copy)
+lives at **`tools/mailing-list/Code.gs`** in this repo.
 
-1. sheets.google.com → new spreadsheet, name it `Hotelway — early access`.
-   Put `email` in A1 and `date` in B1.
-2. Extensions → Apps Script. Delete the sample code, paste:
+### A. Sheet + script (owner does; ~5 min)
 
-   ```js
-   function doPost(e) {
-     const email = JSON.parse(e.postData.contents).email;
-     SpreadsheetApp.getActiveSpreadsheet().getSheets()[0]
-       .appendRow([email, new Date()]);
-     return ContentService.createTextOutput('ok');
-   }
-   ```
+1. sheets.google.com → new spreadsheet → name it `Hotelway — early access`
+   (tabs are created automatically by the script).
+2. Extensions → Apps Script → delete the sample code → paste the entire
+   contents of `tools/mailing-list/Code.gs` → save (⌘S).
+3. In the editor, run the `testWelcome` function once (▶ Run): approve the
+   authorization prompts (it needs Sheets + Gmail "send as you"), then
+   check the studio inbox — the welcome email should arrive there.
+4. Deploy → New deployment → type **Web app** →
+   Execute as: **Me** · Who has access: **Anyone**
+   (required so visitors' browsers can post; the URL is unguessable and
+   the script can only append rows / send its two emails).
+5. Copy the Web app URL (`https://script.google.com/macros/s/…/exec`).
 
-3. Click Deploy → New deployment → type: Web app.
-   - Execute as: **Me**
-   - Who has access: **Anyone**  (required so visitors' browsers can post;
-     the URL is unguessable and it can only append rows)
-4. Authorize when prompted, then copy the Web app URL
-   (`https://script.google.com/macros/s/…/exec`).
-5. Paste it into `index.html`:
-   `const JOIN_ENDPOINT = 'https://script.google.com/macros/s/…/exec';`
-6. Commit + push. Every Join now appends a row to the sheet.
-   (The site already sends Apps Script URLs a no-cors POST — no code
-   changes needed beyond pasting the URL.)
+### B. Wire the site (paste the URL in two places)
+
+- `index.html` → `const JOIN_ENDPOINT = '…/exec';`
+- `inquire.html` → `const INQUIRY_ENDPOINT = '…/exec';`  (same URL)
+- Commit + push. Both pages already speak the Apps Script protocol
+  (no-cors POST) — no other code changes.
+
+### C. Gmail: no-reply behavior + folders (owner does; ~7 min)
+
+The welcome email is sent **from** hotelwaystudios@gmail.com but its
+reply-to is `hotelwaystudios+noreply@gmail.com` (same inbox, tagged
+address) — that tag is what the filters key on.
+
+1. **Enable templates**: Gmail → ⚙ → See all settings → Advanced →
+   Templates → Enable → Save.
+2. **Create the auto-reply template**: Compose → subject
+   `Hotelway Studios — please use the inquiry form`, body from the
+   "auto-reply template" copy block (kept alongside the script in
+   tools/mailing-list/) → ⋮ (bottom-right of compose) → Templates →
+   Save draft as template → Save as new template. Discard the draft.
+3. **Create two labels**: `Hotelway/Welcome replies` and
+   `Hotelway/Inquiries` (Settings → Labels → Create new).
+4. **Filter 1 — replies to the welcome email**: search box →
+   `to:(hotelwaystudios+noreply@gmail.com)` → Create filter →
+   ✓ Skip the Inbox · ✓ Apply label `Hotelway/Welcome replies` ·
+   ✓ Send template: (the template above) · ✓ Never send to Spam.
+5. **Filter 2 — website inquiries**: search `subject:("Hotelway inquiry")`
+   → Create filter → ✓ Apply label `Hotelway/Inquiries` ·
+   ✓ Never send to Spam (leave it in the Inbox so new inquiries are seen;
+   replying to the notification replies straight to the visitor).
+
+Note: Gmail's "Send template" auto-reply fires at most once per address
+per day — exactly right for this. Apps Script on a free Gmail account
+can send ~100 emails/day.
+
+### D. Test the loop end to end
+
+1. Join on the live cover page with a personal address → welcome email
+   arrives within a minute; `Subscribers` tab gains a row.
+2. Reply to that welcome email → the reply skips the studio inbox, lands
+   under `Hotelway/Welcome replies`, and the sender receives the
+   "please use the inquiry form" auto-response.
+3. Submit the inquiry form → `Inquiries` tab gains a row and a
+   `Hotelway inquiry — <name>` email lands in the inbox under
+   `Hotelway/Inquiries`.
 
 ## Gmail — auto-sort inquiries + auto-reply (~5 min, in Gmail settings)
 
