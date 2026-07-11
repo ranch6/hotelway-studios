@@ -79,6 +79,39 @@ and fall back to opening a pre-filled email until you add your form IDs.
 
 Submissions then arrive at hotelwaystudios@gmail.com with the visitor's
 address as reply-to, and inquiries are also stored in the Formspree dashboard.
+The Formspree dashboard can export all submissions as a CSV — that's your
+mailing-list dump on the free plan.
+
+## Mailing list alternative — Google Sheet dump (free, unlimited, ~10 min)
+
+If you'd rather have Join emails land in a spreadsheet automatically
+(a real mailing list, no monthly cap), the JOIN endpoint also accepts a
+Google Apps Script URL:
+
+1. sheets.google.com → new spreadsheet, name it `Hotelway — early access`.
+   Put `email` in A1 and `date` in B1.
+2. Extensions → Apps Script. Delete the sample code, paste:
+
+   ```js
+   function doPost(e) {
+     const email = JSON.parse(e.postData.contents).email;
+     SpreadsheetApp.getActiveSpreadsheet().getSheets()[0]
+       .appendRow([email, new Date()]);
+     return ContentService.createTextOutput('ok');
+   }
+   ```
+
+3. Click Deploy → New deployment → type: Web app.
+   - Execute as: **Me**
+   - Who has access: **Anyone**  (required so visitors' browsers can post;
+     the URL is unguessable and it can only append rows)
+4. Authorize when prompted, then copy the Web app URL
+   (`https://script.google.com/macros/s/…/exec`).
+5. Paste it into `index.html`:
+   `const JOIN_ENDPOINT = 'https://script.google.com/macros/s/…/exec';`
+6. Commit + push. Every Join now appends a row to the sheet.
+   (The site already sends Apps Script URLs a no-cors POST — no code
+   changes needed beyond pasting the URL.)
 
 ## Gmail — auto-sort inquiries + auto-reply (~5 min, in Gmail settings)
 

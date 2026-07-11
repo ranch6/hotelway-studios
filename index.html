@@ -6,7 +6,7 @@
 <title>Hotelway Studios</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%235A6B4D'/%3E%3Cpath d='M20 52L20 30Q20 18 32 18Q44 18 44 30L44 52Z' fill='%23faf7f1'/%3E%3C/svg%3E">
 <meta property="og:title" content="Hotelway Studios">
-<meta property="og:description" content="Faceless POV hospitality content — cinematic photo and short-form video for hotels and stays. Portfolio in progress; now booking autumn 2026.">
+<meta property="og:description" content="Faceless POV hospitality content — cinematic photo and short-form video for hotels and stays. Portfolio in progress.">
 <meta property="og:type" content="website">
 <!-- TODO once the domain is live: <meta property="og:image" content="https://YOURDOMAIN/assets/cover-room.jpg"> -->
 <meta name="description" content="Hotelway Studios — faceless POV hospitality content. Portfolio in progress.">
@@ -108,6 +108,24 @@
     letter-spacing: 0.1em; color: var(--gold);
   }
 
+  /* Post-join transition veil: "now onto the studio…" then studio.html */
+  .veil {
+    position: fixed; inset: 0; z-index: 99;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px;
+    background: color-mix(in srgb, var(--linen) 97%, transparent);
+    backdrop-filter: blur(6px);
+    opacity: 0; pointer-events: none; transition: opacity 0.7s ease;
+  }
+  .veil.show { opacity: 1; pointer-events: auto; }
+  .veil .veil-line {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: clamp(1.5rem, 3.4vw, 2.2rem); color: var(--ink);
+  }
+  .veil .veil-bar { width: 150px; height: 1px; background: var(--stone-soft); overflow: hidden; }
+  .veil .veil-bar i { display: block; height: 100%; width: 0; background: var(--gold); }
+  .veil.show .veil-bar i { animation: veil-fill 3s linear forwards; }
+  @keyframes veil-fill { from { width: 0; } to { width: 100%; } }
+
   @media (max-width: 640px) {
     .corner-tl { left: 22px; }
     .corner-tr { right: 22px; top: 72px; }
@@ -118,7 +136,7 @@
 <body>
 
 <div class="corner corner-tl">HOTELWAY&nbsp;STUDIOS</div>
-<div class="corner corner-tr">Portfolio in progress<br>New York<br>Now booking — autumn 2026</div>
+<div class="corner corner-tr">Portfolio in progress<br>New York</div>
 
 <div class="stage" id="stage"></div>
 
@@ -131,6 +149,11 @@
   <br>
   <a class="enter" href="studio.html">Enter the studio &rarr;</a>
   <a class="enter" style="margin-left: 34px;" href="inquire.html">Inquiries &rarr;</a>
+</div>
+
+<div class="veil" id="veil" aria-hidden="true">
+  <span class="veil-line">now onto the studio&hellip;</span>
+  <span class="veil-bar"><i></i></span>
 </div>
 
 <script src="assets/media.js"></script>
@@ -230,34 +253,58 @@
     if (dragMoved > 8) { e.preventDefault(); e.stopPropagation(); }
   }, true);
 
-  // Early-access list capture via Formspree. Until the form ID is set
-  // (see DEPLOY.md), fall back to a pre-filled email so the line still works.
+  // Early-access list capture. JOIN_ENDPOINT accepts either:
+  //   - a Formspree form URL  (https://formspree.io/f/XXXXYYYY), or
+  //   - a Google Apps Script web-app URL (https://script.google.com/...)
+  //     that appends the email to a Google Sheet — see DEPLOY.md for both.
+  // Until one is set, it falls back to opening a pre-filled Gmail draft.
   const JOIN_ENDPOINT = 'https://formspree.io/f/YOUR_JOIN_FORM_ID';
   const accessForm = document.getElementById('access');
+
+  // "Subscribed! Stay tuned." → veil "now onto the studio…" → studio.html.
+  function joinSucceeded() {
+    accessForm.outerHTML = '<p class="joined">Subscribed! Stay tuned.</p>';
+    setTimeout(() => {
+      const veil = document.getElementById('veil');
+      veil.classList.add('show');
+      veil.setAttribute('aria-hidden', 'false');
+      setTimeout(() => { location.href = 'studio.html'; }, 3000);
+    }, 1100);
+  }
+
   accessForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const input = document.getElementById('email');
     const v = input.value.trim();
     if (!v || !input.checkValidity()) { input.reportValidity(); return; }
     if (JOIN_ENDPOINT.includes('YOUR_JOIN_FORM_ID')) {
+      // No list endpoint configured yet: open a pre-filled Gmail draft in a
+      // new tab so the address still reaches the studio, then continue the
+      // subscribed → studio transition here.
       const subject = encodeURIComponent('Hotelway Studios — early access');
       const body = encodeURIComponent(`Please add ${v} to the list.`);
-      location.href = `mailto:hotelwaystudios@gmail.com?subject=${subject}&body=${body}`;
+      window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=hotelwaystudios@gmail.com&su=${subject}&body=${body}`, '_blank');
+      joinSucceeded();
       return;
     }
     const btn = accessForm.querySelector('button');
     btn.textContent = '…';
     try {
-      const res = await fetch(JOIN_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: v, _subject: 'Hotelway — early access signup' })
-      });
-      if (!res.ok) throw new Error();
-      accessForm.outerHTML = '<p class="joined">You&rsquo;re on the list &mdash; thank you.</p>';
+      // Apps Script web apps can't answer CORS preflights, so send those a
+      // simple no-cors POST (opaque response = assumed delivered).
+      const isAppsScript = JOIN_ENDPOINT.includes('script.google.com');
+      const res = await fetch(JOIN_ENDPOINT, isAppsScript
+        ? { method: 'POST', mode: 'no-cors', body: JSON.stringify({ email: v }) }
+        : {
+            method: 'POST',
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: v, _subject: 'Hotelway — early access signup' })
+          });
+      if (!res.ok && res.type !== 'opaque') throw new Error();
+      joinSucceeded();
     } catch {
       btn.textContent = 'Join';
-      if (!accessForm.querySelector('.access-err')) {
+      if (!document.querySelector('.access-err')) {
         const err = document.createElement('span');
         err.className = 'access-err';
         err.textContent = 'Something went wrong — email us at hotelwaystudios@gmail.com';
