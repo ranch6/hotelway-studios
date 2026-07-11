@@ -10,6 +10,13 @@
  *   - cover JOIN form posts { email }            → Subscribers tab + welcome email (within seconds)
  *   - inquire.html posts   { name, email, ... }  → Inquiries tab + notification to your inbox
  *
+ * PRIVACY / LEAST-PRIVILEGE: this script uses MailApp (send-only — it is
+ * technically incapable of reading mail) and, via appsscript.json, limits
+ * its Sheets access to THIS spreadsheet only. The authorization prompt
+ * should ask exactly two things: "Send email as you" and access to the
+ * spreadsheet this script is installed in. If it asks to READ your email,
+ * the manifest step in DEPLOY.md was skipped.
+ *
  * Sending quota on a free Gmail account: ~100 emails/day — plenty here.
  */
 
@@ -88,7 +95,8 @@ This address sends notes but isn't monitored — for anything that needs an answ
     </div>
   </div>`;
 
-  GmailApp.sendEmail(to, subject, plain, {
+  // MailApp, not GmailApp: send-only permission, cannot read any mail.
+  MailApp.sendEmail(to, subject, plain, {
     htmlBody: html,
     name: 'Hotelway Studios',
     replyTo: NOREPLY,
@@ -100,7 +108,7 @@ This address sends notes but isn't monitored — for anything that needs an answ
 function handleInquiry(d) {
   const s = sheetTab('Inquiries', ['date', 'name', 'email', 'phone', 'message']);
   s.appendRow([new Date(), d.name || '', d.email || '', d.phone || '', d.message || '']);
-  GmailApp.sendEmail(
+  MailApp.sendEmail(
     OWNER_EMAIL,
     'Hotelway inquiry — ' + (d.name || d.email || 'website'),
     `Name: ${d.name || ''}\nEmail: ${d.email || ''}\nPhone: ${d.phone || ''}\n\n${d.message || ''}\n\n— sent from the website inquiry form; reply to this email to answer them directly.`,

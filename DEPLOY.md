@@ -96,14 +96,25 @@ lives at **`tools/mailing-list/Code.gs`** in this repo.
    (tabs are created automatically by the script).
 2. Extensions → Apps Script → delete the sample code → paste the entire
    contents of `tools/mailing-list/Code.gs` → save (⌘S).
-3. In the editor, run the `testWelcome` function once (▶ Run): approve the
-   authorization prompts (it needs Sheets + Gmail "send as you"), then
-   check the studio inbox — the welcome email should arrive there.
-4. Deploy → New deployment → type **Web app** →
+3. **Least-privilege manifest** (keeps the permissions minimal): in the
+   Apps Script editor, ⚙ Project Settings → check "Show `appsscript.json`
+   manifest file in editor" → back in the Editor, open `appsscript.json`
+   and replace its contents with `tools/mailing-list/appsscript.json`
+   → save. This limits the script to **send-only** email (it cannot read
+   mail) and to **this one spreadsheet** (it cannot touch other files).
+4. Run the `testWelcome` function once (▶ Run) and approve the prompt.
+   Because you're the script's author, Google shows an "unverified app"
+   interstitial — click Advanced → "Go to … (unsafe)"; that wording just
+   means Google hasn't commercially reviewed it, and the code is yours.
+   The consent screen should list exactly two permissions: *send email as
+   you* and *access to spreadsheets this application is installed in*.
+   If it asks to read/delete email, the manifest step above was missed.
+   Then check the studio inbox — the welcome email should arrive.
+5. Deploy → New deployment → type **Web app** →
    Execute as: **Me** · Who has access: **Anyone**
    (required so visitors' browsers can post; the URL is unguessable and
    the script can only append rows / send its two emails).
-5. Copy the Web app URL (`https://script.google.com/macros/s/…/exec`).
+6. Copy the Web app URL (`https://script.google.com/macros/s/…/exec`).
 
 ### B. Wire the site (paste the URL in two places)
 
