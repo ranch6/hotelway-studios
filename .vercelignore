@@ -1,0 +1,4 @@
+# Kept out of the public deployment — these stay local/in the repo only.
+admin.html
+*.md
+tools/

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Media Board — Hotelway Studios (local only)</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23B98A2F'/%3E%3Cpath d='M20 52L20 30Q20 18 32 18Q44 18 44 30L44 52Z' fill='%23faf7f1'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --linen: #FBF7EB; --linen-deep: #F2EBD5; --cream: #FFFDF4;
+    --stone-soft: #DCD3B4; --ink: #2C2F26; --ink-soft: #6A6D57;
+    --gold: #B98A2F; --leaf-soft: #E0E4C8;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Inter', -apple-system, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--linen); color: var(--ink); font-family: var(--sans); font-weight: 300; line-height: 1.6; padding-bottom: 120px; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+
+  .topbar {
+    background: var(--ink); color: var(--linen); padding: 14px 28px;
+    display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
+    position: sticky; top: 0; z-index: 5;
+  }
+  .topbar .mark { font-family: var(--serif); letter-spacing: 0.24em; text-transform: uppercase; font-size: 0.95rem; }
+  .topbar .local {
+    font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+    border: 1px solid var(--gold); color: var(--gold); padding: 5px 12px;
+  }
+
+  .howto {
+    background: var(--leaf-soft); border: 1px solid var(--stone-soft);
+    margin: 36px auto; padding: 26px 30px; max-width: 1124px;
+  }
+  .howto h2 { font-family: var(--serif); font-size: 1.4rem; margin-bottom: 10px; }
+  .howto ol { margin: 10px 0 0 20px; font-size: 0.9rem; color: var(--ink-soft); }
+  .howto li { margin-bottom: 6px; }
+  .howto code, .snippet code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8em; background: rgba(44,47,38,0.07); padding: 1px 6px; border-radius: 3px; }
+
+  h1 { font-family: var(--serif); font-weight: 400; font-size: 2.2rem; margin: 46px 0 6px; }
+  .sub { color: var(--ink-soft); font-size: 0.92rem; max-width: 640px; }
+
+  .surface { margin-top: 64px; }
+  .surface > h3 {
+    font-family: var(--serif); font-weight: 400; font-size: 1.5rem;
+    border-bottom: 1px solid var(--stone-soft); padding-bottom: 10px; margin-bottom: 6px;
+  }
+  .surface > .where { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 22px; }
+
+  .board { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+  .slot { background: var(--cream); border: 1px solid var(--stone-soft); }
+  .slot .thumb { aspect-ratio: 4 / 5; background: var(--linen-deep); overflow: hidden; position: relative; }
+  .slot .thumb img, .slot .thumb video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .slot .thumb .placeholder {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif); font-style: italic; color: var(--ink-soft); font-size: 0.95rem; text-align: center; padding: 20px;
+  }
+  .slot .badge {
+    position: absolute; top: 10px; left: 10px; background: rgba(44,47,38,0.82); color: var(--linen);
+    font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; padding: 4px 9px;
+  }
+  .slot .badge.video { background: var(--gold); }
+  .slot .body { padding: 14px 16px 16px; }
+  .slot .t { font-family: var(--serif); font-size: 1.05rem; }
+  .slot .m { font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); margin-top: 2px; min-height: 1em; }
+  .slot .file {
+    display: block; margin-top: 10px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.68rem; color: var(--ink); background: var(--linen); border: 1px dashed var(--stone-soft);
+    padding: 6px 8px; word-break: break-all;
+  }
+
+  .section-lede { background: var(--cream); border: 1px solid var(--stone-soft); padding: 16px 20px; margin-bottom: 20px; font-size: 0.85rem; color: var(--ink-soft); }
+  .section-lede .st { font-family: var(--serif); color: var(--ink); font-size: 1.1rem; font-style: italic; }
+
+  .snippet { margin-top: 40px; background: var(--cream); border: 1px solid var(--stone-soft); padding: 22px 24px; }
+  .snippet h4 { font-family: var(--serif); font-weight: 400; font-size: 1.15rem; margin-bottom: 8px; }
+  .snippet p { font-size: 0.82rem; color: var(--ink-soft); margin-bottom: 12px; }
+  .snippet pre {
+    background: var(--ink); color: var(--linen); padding: 16px 18px; overflow-x: auto;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.72rem; line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="mark">Hotelway — Media Board</span>
+  <span class="local">Local only · never published</span>
+</div>
+
+<div class="wrap">
+  <h1>Every photo &amp; video on the site, in one place.</h1>
+  <p class="sub">This board previews exactly what <code>assets/media.js</code> is pointing at. It is excluded from the public deploy (see <code>.vercelignore</code>) — only you see this page.</p>
+
+  <div class="howto">
+    <h2>How to change any image (or add a video)</h2>
+    <ol>
+      <li>Drop the new photo or video into the <code>assets/</code> folder.</li>
+      <li>Open <code>assets/media.js</code> in any text editor — every slot below has a matching entry there, in the same order, under the same section name.</li>
+      <li>Point the entry's <code>src:</code> at your new filename (for videos, add <code>video: true</code> and an optional <code>poster:</code> still).</li>
+      <li>Save, refresh this page to check it, then commit &amp; push — Vercel publishes automatically.</li>
+    </ol>
+  </div>
+
+  <div id="root"></div>
+
+  <div class="snippet">
+    <h4>Blank templates — copy into <code>assets/media.js</code></h4>
+    <p>A new photo tile, a new video/reel tile, and a whole new portfolio series:</p>
+    <pre>// photo tile
+{ src: "assets/YOUR-PHOTO.jpg", alt: "describe the photo",
+  title: "Tile Title", meta: "Small · Uppercase · Caption" },
+
+// video / reel tile (plays inline, muted, looping)
+{ src: "assets/YOUR-REEL.mp4", video: true, poster: "assets/OPTIONAL-STILL.jpg",
+  title: "In Motion", meta: "Arrival · 15s" },
+
+// a whole new portfolio series (goes in the portfolio: [...] list)
+{
+  eyebrow: "Series 04",
+  heading: "Your new series title.",
+  lede: "One quiet sentence about what this series is.",
+  items: [
+    // photo/video tiles here
+  ],
+},</pre>
+  </div>
+</div>
+
+<script src="assets/media.js"></script>
+<script>
+  const M = window.SITE_MEDIA;
+
+  const slot = (t, i, extra = '') => `
+    <div class="slot">
+      <div class="thumb">
+        ${t.comingSoon
+          ? `<div class="placeholder">${t.comingSoon}</div>`
+          : t.video
+            ? `<video src="${t.src}"${t.poster ? ` poster="${t.poster}"` : ''} muted loop autoplay playsinline></video>`
+            : `<img src="${t.src}" alt="">`}
+        <span class="badge${t.video ? ' video' : ''}">${t.comingSoon ? 'placeholder' : t.video ? 'video' : 'photo'} · ${i + 1}${extra}</span>
+      </div>
+      <div class="body">
+        <div class="t">${t.title || (t.comingSoon ? 'Coming-soon card' : '&nbsp;')}</div>
+        <div class="m">${t.meta || ''}</div>
+        <span class="file">${t.comingSoon ? '(no file — text card)' : t.src}${t.poster ? `<br>poster: ${t.poster}` : ''}</span>
+      </div>
+    </div>`;
+
+  const surface = (title, where, inner) => `
+    <div class="surface">
+      <h3>${title}</h3>
+      <div class="where">${where}</div>
+      ${inner}
+    </div>`;
+
+  let html = '';
+
+  html += surface('Cover Deck', 'shows on index.html (the cover page) · edit under coverDeck in assets/media.js',
+    `<div class="board">${M.coverDeck.map((t, i) => slot(t, i)).join('')}</div>`);
+
+  html += surface('Selected Work Grid', 'shows on studio.html · edit under workGrid · wide: true = double-width tile',
+    `<div class="board">${M.workGrid.map((t, i) => slot(t, i, t.wide ? ' · wide' : '')).join('')}</div>`);
+
+  html += surface('In Motion Reel', 'the phone-framed reel on studio.html · edit under reel',
+    `<div class="board">${slot({ ...M.reel, video: true, title: 'The Reel' }, 0)}</div>`);
+
+  html += surface('Hero Band Video', 'the full-width video under the studio.html hero · edit under heroBand',
+    `<div class="board">${slot({ ...M.heroBand, video: true, title: 'Hero Band', meta: (M.heroBand.captionLeft || '') }, 0)}</div>`);
+
+  html += surface('Portfolio Page', 'shows on portfolio.html · edit under portfolio — each block is one series section',
+    M.portfolio.map((s, si) => `
+      <div class="section-lede">
+        <span class="st">${s.eyebrow} — ${s.heading}</span><br>${s.lede || ''}
+      </div>
+      <div class="board" style="margin-bottom:34px">${s.items.map((t, i) => slot(t, i)).join('')}</div>`).join(''));
+
+  document.getElementById('root').innerHTML = html;
+</script>
+
+</body>
+</html>

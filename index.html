@@ -58,7 +58,7 @@
     box-shadow: 0 18px 50px rgba(44, 47, 38, 0.18);
     background: #fff;
   }
-  .card img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+  .card img, .card video { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
   .card { -webkit-user-drag: none; }
   .card.blank {
     background: var(--linen);
@@ -120,18 +120,7 @@
 <div class="corner corner-tl">HOTELWAY&nbsp;STUDIOS</div>
 <div class="corner corner-tr">Portfolio in progress<br>New York<br>Now booking — autumn 2026</div>
 
-<div class="stage" id="stage">
-  <a class="card" href="studio.html"><img src="assets/work-lobby.jpg" alt="Hotel lobby lounge with wood-slat walls"></a>
-  <a class="card" href="studio.html"><img src="assets/work-room.jpg" alt="Hotel bedroom in warm lamplight"></a>
-  <a class="card" href="studio.html"><img src="assets/own-IMG_1637.jpg" alt="Plastered lounge with beamed ceiling and sun shafts"></a>
-  <a class="card" href="studio.html"><img src="assets/own-IMG_1678.jpg" alt="Vine-covered pergola terrace overlooking the sea"></a>
-  <a class="card" href="studio.html"><img src="assets/own-IMG_1681.jpg" alt="Ochre wall and weathered green table with fruit above a deep blue sea"></a>
-  <a class="card blank" href="studio.html"><span>no. 07<br>first location study<br>— coming soon —</span></a>
-  <a class="card" href="studio.html"><img src="assets/deck-room.jpg" alt="Classic hotel bed with tufted headboard and warm lamps"></a>
-  <a class="card" href="studio.html"><img src="assets/split-sunset.jpg" alt="Palm-lined resort pool at sunset"></a>
-  <a class="card" href="studio.html"><img src="assets/own-IMG_1679.jpg" alt="Stone villa and pool at golden hour"></a>
-  <a class="card" href="studio.html"><img src="assets/own-IMG_1680.jpg" alt="Stone window framing the sea at sunset"></a>
-</div>
+<div class="stage" id="stage"></div>
 
 <div class="foot">
   <div class="label">Collaborations &amp; early access</div>
@@ -144,6 +133,18 @@
   <a class="enter" style="margin-left: 34px;" href="inquire.html">Inquiries &rarr;</a>
 </div>
 
+<script src="assets/media.js"></script>
+<script>
+  // Deck cards come from assets/media.js (the media board) — edit imagery
+  // there, not here. Rendered before the deck script reads .card below.
+  document.getElementById('stage').innerHTML = window.SITE_MEDIA.coverDeck.map(c =>
+    c.comingSoon
+      ? `<a class="card blank" href="studio.html"><span>${c.comingSoon}</span></a>`
+      : `<a class="card" href="studio.html">${c.video
+          ? `<video src="${c.src}"${c.poster ? ` poster="${c.poster}"` : ''} autoplay muted loop playsinline></video>`
+          : `<img src="${c.src}" alt="${c.alt || ''}">`}</a>`
+  ).join('');
+</script>
 <script>
   // Coverflow deck: cards drift right-to-left on a shallow 3D arc, wrapping
   // around. Hovering pauses the drift and straightens the hovered card.

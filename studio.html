@@ -123,7 +123,8 @@
   .tile figcaption { margin-top: 14px; }
   .tile .t-title { font-family: var(--serif); font-size: 1.15rem; }
   .tile .t-meta { font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft); margin-top: 3px; }
-  .work-note { margin-top: 40px; font-size: 0.8rem; color: var(--ink-soft); font-style: italic; }
+  .tile-frame video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .work-more { margin-top: 52px; text-align: center; }
 
   /* ---------- visual direction ---------- */
   .swatches { display: flex; gap: 14px; margin: 40px 0; flex-wrap: wrap; }
@@ -311,10 +312,10 @@
 </header>
 
 <figure class="band">
-  <video src="assets/band-waves.mp4" poster="assets/band-waves-poster.jpg" autoplay muted loop playsinline></video>
+  <video id="band-video" autoplay muted loop playsinline></video>
   <figcaption>
-    <span>Location study — the Aegean</span>
-    <span>Shot by the studio</span>
+    <span id="band-cap-left"></span>
+    <span id="band-cap-right"></span>
   </figcaption>
 </figure>
 
@@ -332,59 +333,10 @@
     <p class="eyebrow reveal">Selected Work</p>
     <h2 class="reveal">Guest-experience stories, one frame at a time.</h2>
     <p class="lede reveal">Every stay has a narrative arc. We shoot it in sequence — the door, the light, the first coffee — and deliver it as stills and vertical films built for the platforms where travelers actually book.</p>
-    <div class="grid">
-      <!-- Interim licensed imagery (Unsplash license) — swap for original stills as shoots complete -->
-      <figure class="tile tile-wide reveal">
-        <div class="tile-frame"><img src="assets/deck-room.jpg" alt="Classic hotel suite with tufted headboard, tall window, and warm lamps"></div>
-        <figcaption>
-          <div class="t-title">The Suite</div>
-          <div class="t-meta">Tall Windows · Warm Lamps · Stillness</div>
-        </figcaption>
-      </figure>
-      <figure class="tile reveal">
-        <div class="tile-frame"><img src="assets/work-lobby.jpg" alt="Hotel lobby lounge with wood-slat walls and low afternoon light"></div>
-        <figcaption>
-          <div class="t-title">Arrival</div>
-          <div class="t-meta">Lobby · Check-In · First Light</div>
-        </figcaption>
-      </figure>
-      <figure class="tile reveal">
-        <div class="tile-frame"><img src="assets/own-IMG_1681.jpg" alt="Ochre wall, weathered green table with fruit and spring water above a deep blue sea" loading="lazy"></div>
-        <figcaption>
-          <div class="t-title">Morning</div>
-          <div class="t-meta">Fruit · Spring Water · Sea Air</div>
-        </figcaption>
-      </figure>
-      <figure class="tile reveal">
-        <div class="tile-frame"><img src="assets/split-sunset.jpg" alt="Palm-lined resort pool reflecting a golden sunset" loading="lazy"></div>
-        <figcaption>
-          <div class="t-title">Poolside</div>
-          <div class="t-meta">Palms · Dusk · Last Swim</div>
-        </figcaption>
-      </figure>
-      <figure class="tile reveal">
-        <div class="tile-frame"><img src="assets/own-IMG_1637.jpg" alt="Plastered lounge with beamed ceiling and afternoon sun shafts" loading="lazy"></div>
-        <figcaption>
-          <div class="t-title">Common Spaces</div>
-          <div class="t-meta">Plaster · Beams · Afternoon Sun</div>
-        </figcaption>
-      </figure>
-      <figure class="tile reveal">
-        <div class="tile-frame"><img src="assets/work-night.jpg" alt="Dim hotel bedroom at night, single reading lamp over the bed" loading="lazy"></div>
-        <figcaption>
-          <div class="t-title">Nightfall</div>
-          <div class="t-meta">Turn-Down · Lamplight · Hush</div>
-        </figcaption>
-      </figure>
-      <figure class="tile tile-wide reveal">
-        <div class="tile-frame"><img src="assets/own-IMG_1678.jpg" alt="Vine-covered pergola terrace with a writing desk overlooking the sea" loading="lazy"></div>
-        <figcaption>
-          <div class="t-title">The View</div>
-          <div class="t-meta">What You Wake Up To</div>
-        </figcaption>
-      </figure>
+    <div class="grid" id="work-grid"></div>
+    <div class="work-more reveal">
+      <a class="btn btn-ghost" href="portfolio.html">View More</a>
     </div>
-    <p class="work-note reveal">A mix of studio-shot location work and licensed reference frames in the house direction. Originals replace references as the studio series grows; client case studies publish as they complete.</p>
   </div>
 </section>
 
@@ -396,7 +348,7 @@
       <p class="lede reveal">A study in the house style — slow push-ins, natural palettes, a stay compressed to its essence. Every engagement delivers vertical films like this, cut natively for Reels and TikTok and sized for every placement your team runs.</p>
     </div>
     <div class="phone reveal">
-      <video src="assets/own-reel.mp4" poster="assets/own-reel-poster.jpg" autoplay muted loop playsinline></video>
+      <video id="reel-video" autoplay muted loop playsinline></video>
     </div>
   </div>
 </section>
@@ -615,13 +567,13 @@
     <div class="foot-links">
       <a href="index.html">Cover</a>
       <a href="#work">Work</a>
+      <a href="portfolio.html">Portfolio</a>
       <a href="#packages">Packages</a>
       <a href="inquire.html">Inquire</a>
     </div>
     <div class="foot-meta">
       <a href="mailto:hotelwaystudios@gmail.com">hotelwaystudios@gmail.com</a>
       <a href="https://instagram.com/hotelwaystudios" target="_blank" rel="noopener">@hotelwaystudios</a>
-      <span class="booking">Now booking — autumn 2026</span>
     </div>
   </div>
   <div class="wrap foot-base">
@@ -629,6 +581,38 @@
   </div>
 </footer>
 
+<script src="assets/media.js"></script>
+<script>
+  // Render every media slot from assets/media.js (the media board).
+  // This must run before the script below, which wires the lightbox
+  // and video autoplay nudges to the rendered elements.
+  (function () {
+    const M = window.SITE_MEDIA;
+
+    const frame = (t) => t.video
+      ? `<video src="${t.src}"${t.poster ? ` poster="${t.poster}"` : ''} autoplay muted loop playsinline></video>`
+      : `<img src="${t.src}" alt="${t.alt || ''}" loading="lazy">`;
+
+    document.getElementById('work-grid').innerHTML = M.workGrid.map(t => `
+      <figure class="tile${t.wide ? ' tile-wide' : ''} reveal">
+        <div class="tile-frame">${frame(t)}</div>
+        <figcaption>
+          <div class="t-title">${t.title || ''}</div>
+          <div class="t-meta">${t.meta || ''}</div>
+        </figcaption>
+      </figure>`).join('');
+
+    const band = document.getElementById('band-video');
+    band.src = M.heroBand.src;
+    if (M.heroBand.poster) band.poster = M.heroBand.poster;
+    document.getElementById('band-cap-left').textContent = M.heroBand.captionLeft || '';
+    document.getElementById('band-cap-right').textContent = M.heroBand.captionRight || '';
+
+    const reel = document.getElementById('reel-video');
+    reel.src = M.reel.src;
+    if (M.reel.poster) reel.poster = M.reel.poster;
+  })();
+</script>
 <script>
   // Scroll-reveal via position sweep (IntersectionObserver is unreliable
   // in some embedded viewers, and a stuck observer leaves sections invisible).
@@ -683,8 +667,9 @@
   lb.innerHTML = '<img alt=""><div class="lb-cap"></div>';
   document.body.appendChild(lb);
   document.querySelectorAll('.tile').forEach(t => {
+    const img = t.querySelector('img');
+    if (!img) { t.style.cursor = 'default'; return; } // video tiles play inline
     t.addEventListener('click', () => {
-      const img = t.querySelector('img');
       lb.querySelector('img').src = img.src;
       lb.querySelector('img').alt = img.alt;
       lb.querySelector('.lb-cap').textContent =
@@ -699,8 +684,11 @@
 
   // Some environments ignore the autoplay attribute even for muted video —
   // nudge playback on load and again on first interaction.
-  const teaser = document.querySelector('#motion video');
-  function nudgePlay() { if (teaser && teaser.paused) teaser.play().catch(() => {}); }
+  function nudgePlay() {
+    document.querySelectorAll('video[autoplay]').forEach(v => {
+      if (v.paused) v.play().catch(() => {});
+    });
+  }
   nudgePlay();
   window.addEventListener('scroll', nudgePlay, { once: true, passive: true });
   window.addEventListener('pointerdown', nudgePlay, { once: true });

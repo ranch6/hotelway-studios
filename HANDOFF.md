@@ -18,14 +18,21 @@ Tallinn, March 2026" — that date passed, so the working assumption is
 **March 2027** (unconfirmed; re-anchor the pitch timeline when she confirms).
 
 Studio contact: **hotelwaystudios@gmail.com** · Instagram **@hotelwaystudios**.
-Availability line used across the site: **"Now booking — autumn 2026."**
+Availability line **"Now booking — autumn 2026"** was removed from the
+studio footer (her ask, July 10 2026) but still appears on the cover-page
+corner, the contact-section lede, and the "Inquire for Autumn '26" split-panel
+button — re-anchor or remove those when she says so.
 
 ## Repo layout (this folder is a git repo, ~15 commits)
 
 | File | What it is |
 |---|---|
 | `index.html` | Entrance/cover page: auto-drifting 3D coverflow deck (timer-driven, NOT rAF — see gotchas), touch/mouse drag scrubbing, early-access email capture, links into the studio |
-| `studio.html` | Main site: hero → video band → ethos quote → work grid → In Motion (phone-framed reel) → visual direction → services → why POV → dark "Beyond the room" split panel → process → packages → FAQ → about → contact → footer |
+| `studio.html` | Main site: hero → video band → ethos quote → work grid (+ VIEW MORE → portfolio.html) → In Motion (phone-framed reel) → visual direction → services → why POV → dark "Beyond the room" split panel → process → packages → FAQ → about → contact → footer |
+| `portfolio.html` | Branch portfolio page ("Slow Living. One Photo At A Time.") — series sections rendered from media.js, ends with "Continuously building." + back-to-studio/contact buttons |
+| `assets/media.js` | **THE media manifest** — every photo/video slot on the site (cover deck, work grid, reel, hero band, portfolio series) is defined here; the pages render from it. To change imagery, edit only this file. Supports `video: true` entries everywhere |
+| `admin.html` | Her local media board: previews every media.js slot with filenames + how-to-edit instructions. In git but **excluded from deploys** via `.vercelignore` |
+| `.vercelignore` | Keeps `admin.html`, `*.md` (incl. this file), and `tools/` out of the public deployment |
 | `inquire.html` | Standalone inquiry form (name / email / optional phone / message) with an on-page "Sent — thank you" state |
 | `PLAYBOOK.md` | Content strategy: 9-beat "complete stay" shot-list arc, 3-weekend portfolio plan, three reel templates with beat timing, credibility do/don't, hotel pitch email skeleton + timeline |
 | `DEPLOY.md` | Launch instructions (Netlify Drop fast path + GitHub/Vercel), Formspree form setup, Gmail auto-label + auto-reply recipe |
@@ -60,11 +67,16 @@ studio-shot location work + licensed reference frames.
 
 ## Imagery & licensing (assets/)
 
-- `own-IMG_*.jpg` — **Rachel's own photos** (converted from HEIC via `sips`):
-  1637 plaster lounge (Common Spaces tile), 1678 pergola sea desk (The View),
-  1679 stone villa pool (cover deck; has small figures), 1680 stone window
-  sunset (split-panel image; also cover deck), 1681 ochre table + sea
-  (Morning tile; also replaced the illustrated Morning card in the cover deck).
+- `own-IMG_*.jpg` — **Rachel's own photos**, and as of July 10, 2026 the
+  site imagery is **100% hers**. First batch (from HEIC via `sips`): 1637
+  plaster lounge, 1678 pergola sea desk, 1679 stone villa pool (has small
+  figures), 1680 stone window sunset, 1681 ochre table + sea. Second batch
+  (from raw `IMG_*.JPG` drops via PIL `exif_transpose` — **always bake EXIF
+  rotation**, iPhone files carry orientation flags): 0556 old-town lane
+  archways, 4432 cliff cove, 4435 golden-hour patio, 4544 bougainvillea dusk,
+  4831 harbor sunset, 5019 POV dinner (hands visible, no faces — on-brand),
+  9404 restaurant bay window. Raw `*.JPG`/`*.jpeg` are gitignored; web
+  versions are 1350×1800 q74.
 - `own-reel.mp4` — **her footage**: 3 clips stitched (taverna arrival →
   Santorini sunset path → sea view), ~8s 1080×1920 vertical; plays in the
   In Motion phone frame. **Gotcha:** iPhone MOVs store a landscape sensor
@@ -76,16 +88,13 @@ studio-shot location work + licensed reference frames.
   `ffmpeg -i file 2>&1 | grep -i rotation` — it should report none.
 - `band-waves.mp4` — **her footage**: Aegean waves loop, hero band video.
 - Raw originals (`*.heic`, `*.MOV`) stay on disk but are **gitignored**.
-- `work-*.jpg`, `deck-room.jpg`, `split-sunset.jpg` — Unsplash (free
-  commercial license, no attribution required) interim frames, labeled as
-  licensed reference on-site; replace with originals over time.
-- **Gotcha:** the July 10 media commit deleted the old illustrated assets
-  (`tile-*.svg`, `cover-*.jpg`, `hotelway-teaser.mp4`, `band-dusk.jpg`,
-  `work-arrival.jpg`, `work-corridor.jpg`) but left references in both pages
-  — six broken images. Fixed later that day: cover deck + work grid now use
-  only files that exist (own photos + remaining Unsplash frames; "Corridors"
-  tile became "Poolside" on `split-sunset.jpg`). The old teaser can be
-  regenerated via `tools/make_teaser.py` if ever wanted.
+- `work-*.jpg`, `deck-room.jpg`, `split-sunset.jpg` — old Unsplash interim
+  frames. **No longer referenced anywhere** (she asked for non-own imagery
+  and all licensing notes to be removed); kept on disk only as spares —
+  safe to delete. The on-site Unsplash disclosure notes are gone too.
+- **Gotcha:** when deleting assets, grep both pages for dangling references
+  first — a July 10 commit once left six broken `<img>`s behind. With
+  media.js this is now a single-file check (admin.html shows any misses).
 
 ## Functionality status (all verified in browser)
 
