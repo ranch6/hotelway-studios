@@ -5,7 +5,7 @@ Last updated: July 10, 2026.
 
 ## Who / what this is
 
-Rachel Guan (rachelguan2003@gmail.com) is building **Hotelway Studios**, a
+Rachel is building **Hotelway Studios**, a
 faceless, POV-driven hospitality content studio based in NYC. The studio
 sells cinematic photo + short-form vertical video (Reels/TikTok) to hotels,
 boutique properties, and Airbnbs — guest-experience storytelling with no

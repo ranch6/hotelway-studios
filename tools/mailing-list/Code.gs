@@ -27,8 +27,16 @@ const SITE = 'https://hotelway-studios.vercel.app';
 function doPost(e) {
   try {
     const data = JSON.parse(e.postData.contents);
-    if (data.message) handleInquiry(data);
-    else if (data.email) handleSubscribe(data.email.trim());
+    if (data.message) {
+      handleInquiry({
+        name: clip(data.name, 120),
+        email: clip(data.email, 254).trim(),
+        phone: clip(data.phone, 60),
+        message: clip(data.message, 4000),
+      });
+    } else if (data.email) {
+      handleSubscribe(clip(data.email, 254).trim());
+    }
   } catch (err) {
     // Log, never throw — the site treats any response as delivered.
     console.error(err);
@@ -36,15 +44,53 @@ function doPost(e) {
   return ContentService.createTextOutput('ok');
 }
 
+/* Server-side input bounds: coerce to string and cap length. The site's own
+   forms stay well under these; anything longer is a direct/abusive POST. */
+function clip(v, max) {
+  return String(v == null ? '' : v).slice(0, max);
+}
+
+/* Sheets treats cell values starting with = + - @ as formulas — prefix a
+   quote so hostile form input can never execute in the spreadsheet. */
+function cellSafe(v) {
+  return /^[=+\-@]/.test(v) ? "'" + v : v;
+}
+
+/* Drop rapid repeats (same key) without touching the sheet. */
+function throttled(key, seconds) {
+  const cache = CacheService.getScriptCache();
+  if (cache.get(key)) return true;
+  cache.put(key, '1', seconds);
+  return false;
+}
+
+/* Hard daily ceiling on outbound email so an abusive loop against the
+   public URL can't burn the whole Gmail quota (~100/day on free Gmail). */
+function underDailyCap() {
+  const props = PropertiesService.getScriptProperties();
+  const today = new Date().toDateString();
+  const rec = JSON.parse(props.getProperty('sendCount') || '{}');
+  if (rec.day !== today) { rec.day = today; rec.n = 0; }
+  if (rec.n >= 60) return false;
+  rec.n += 1;
+  props.setProperty('sendCount', JSON.stringify(rec));
+  return true;
+}
+
 /* ── JOIN: record + welcome email ─────────────────────────────────── */
 
 function handleSubscribe(email) {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return;
+  if (throttled('sub:' + email.toLowerCase(), 60)) return;
   // Dedupe: don't re-add or re-welcome an address that's already on the list.
   if (isSubscribed(email)) return;
   const s = sheetTab('Subscribers', ['date', 'email', 'welcome email']);
-  s.appendRow([new Date(), email, '…']);
+  s.appendRow([new Date(), cellSafe(email), '…']);
   const row = s.getLastRow();
+  if (!underDailyCap()) {
+    s.getRange(row, 3).setValue('skipped — daily send cap reached');
+    return;
+  }
   try {
     sendWelcome(email);
     s.getRange(row, 3).setValue('sent ' + new Date().toLocaleString());
@@ -101,19 +147,27 @@ This address sends notes but isn't monitored — for anything that needs an answ
 /* ── INQUIRIES: record + notify your real inbox ───────────────────── */
 
 function handleInquiry(d) {
+  // Throttle repeats per address (double-clicks, retried no-cors POSTs,
+  // scripted loops) — one inquiry per address per 2 minutes.
+  const key = (d.email || 'anonymous').toLowerCase();
+  if (throttled('inq:' + key, 120)) return;
   const s = sheetTab('Inquiries', ['date', 'name', 'email', 'phone', 'message', 'notified']);
-  s.appendRow([new Date(), d.name || '', d.email || '', d.phone || '', d.message || '', '…']);
+  s.appendRow([new Date(), cellSafe(d.name), cellSafe(d.email), cellSafe(d.phone), cellSafe(d.message), '…']);
   const row = s.getLastRow();
-  try {
-    MailApp.sendEmail(
-      OWNER_EMAIL,
-      'Hotelway inquiry — ' + (d.name || d.email || 'website'),
-      `Name: ${d.name || ''}\nEmail: ${d.email || ''}\nPhone: ${d.phone || ''}\n\n${d.message || ''}\n\n— sent from the website inquiry form; reply to this email to answer them directly.`,
-      { replyTo: d.email || OWNER_EMAIL, name: 'Hotelway Website' }
-    );
-    s.getRange(row, 6).setValue('sent ' + new Date().toLocaleString());
-  } catch (err) {
-    s.getRange(row, 6).setValue('FAILED — ' + err);
+  if (!underDailyCap()) {
+    s.getRange(row, 6).setValue('skipped — daily send cap reached (check the sheet for the inquiry)');
+  } else {
+    try {
+      MailApp.sendEmail(
+        OWNER_EMAIL,
+        'Hotelway inquiry — ' + (d.name || d.email || 'website'),
+        `Name: ${d.name}\nEmail: ${d.email}\nPhone: ${d.phone}\n\n${d.message}\n\n— sent from the website inquiry form; reply to this email to answer them directly.`,
+        { replyTo: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email) ? d.email : OWNER_EMAIL, name: 'Hotelway Website' }
+      );
+      s.getRange(row, 6).setValue('sent ' + new Date().toLocaleString());
+    } catch (err) {
+      s.getRange(row, 6).setValue('FAILED — ' + err);
+    }
   }
   // Everyone who inquires also joins the subscriber list (quietly — the
   // welcome email is for Join signups; inquirers get a personal reply).
@@ -123,7 +177,7 @@ function handleInquiry(d) {
 function addSubscriberSilently(email) {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || isSubscribed(email)) return;
   sheetTab('Subscribers', ['date', 'email', 'welcome email'])
-    .appendRow([new Date(), email, 'added via inquiry — no welcome sent']);
+    .appendRow([new Date(), cellSafe(email), 'added via inquiry — no welcome sent']);
 }
 
 /* ── helpers ──────────────────────────────────────────────────────── */
