@@ -89,7 +89,9 @@
   <span class="mark">Hotelway — Media Board</span>
   <span style="display:flex;gap:14px;align-items:center">
     <span class="local">Private · password-gated online</span>
-    <a class="local" style="text-decoration:none;color:inherit" href="/api/logout">Log out</a>
+    <form method="POST" action="/api/logout" style="margin:0">
+      <button type="submit" class="local" style="cursor:pointer;background:none;border:1px solid currentColor;color:inherit;font:inherit;padding:5px 12px">Log out</button>
+    </form>
   </span>
 </div>
 

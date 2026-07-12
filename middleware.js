@@ -37,5 +37,8 @@ async function hasValidSession(req) {
 
 export default async function middleware(req) {
   if (await hasValidSession(req)) return; // fall through to the static file
-  return Response.redirect(new URL('/admin-login.html', req.url), 302);
+  return new Response(null, {
+    status: 302,
+    headers: { Location: new URL('/admin-login.html', req.url).toString(), 'Cache-Control': 'no-store' },
+  });
 }

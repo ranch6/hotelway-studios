@@ -31,7 +31,14 @@ export default async function handler(req, res) {
     const secret = process.env.ADMIN_SESSION_SECRET;
     if (!password || !secret) return res.status(503).json({ ok: false, error: 'not configured' });
 
-    const ip = String(req.headers['x-forwarded-for'] || 'unknown').split(',')[0].trim();
+    // Vercel sets x-real-ip to the true client IP (not client-spoofable).
+    // Fall back to the LAST hop of x-forwarded-for — the platform appends
+    // the real IP, so the rightmost value is the trustworthy one; taking
+    // the leftmost would let a client forge the header. Still best-effort
+    // (per-warm-instance state); the random delay + password entropy are
+    // the real defenses.
+    const xff = String(req.headers['x-forwarded-for'] || '').split(',');
+    const ip = String(req.headers['x-real-ip'] || xff[xff.length - 1] || 'unknown').trim() || 'unknown';
     const now = Date.now();
     const rec = attempts.get(ip) || { n: 0, windowStart: now };
     if (now - rec.windowStart > WINDOW_MS) { rec.n = 0; rec.windowStart = now; }
