@@ -103,6 +103,10 @@
     font-family: 'Cormorant Garamond', serif; font-style: italic;
     font-size: 1.2rem; color: var(--ink);
   }
+  .joined-note {
+    display: block; margin-top: 10px; font-size: 0.68rem;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft);
+  }
   .access-err {
     display: block; margin-top: 12px; font-size: 0.72rem;
     letter-spacing: 0.1em; color: var(--gold);
@@ -154,6 +158,7 @@
 <div class="veil" id="veil" aria-hidden="true">
   <span class="veil-line">now onto the studio&hellip;</span>
   <span class="veil-bar"><i></i></span>
+  <span class="joined-note">Your welcome note is on its way &mdash; check spam if it doesn&rsquo;t appear</span>
 </div>
 
 <script src="assets/media.js"></script>
@@ -263,7 +268,8 @@
 
   // "Subscribed! Stay tuned." → veil "now onto the studio…" → studio.html.
   function joinSucceeded() {
-    accessForm.outerHTML = '<p class="joined">Subscribed! Stay tuned.</p>';
+    accessForm.outerHTML = '<p class="joined">Subscribed! Stay tuned.</p>'
+      + '<span class="joined-note">Welcome note on its way &mdash; check spam if it hides</span>';
     setTimeout(() => {
       const veil = document.getElementById('veil');
       veil.classList.add('show');
