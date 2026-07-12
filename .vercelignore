@@ -1,4 +1,4 @@
 # Kept out of the public deployment — these stay local/in the repo only.
-admin.html
+# (admin.html IS deployed now, but gated behind middleware.js + /api/login.)
 *.md
 tools/

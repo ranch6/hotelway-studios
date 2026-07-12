@@ -87,12 +87,15 @@
 
 <div class="topbar">
   <span class="mark">Hotelway — Media Board</span>
-  <span class="local">Local only · never published</span>
+  <span style="display:flex;gap:14px;align-items:center">
+    <span class="local">Private · password-gated online</span>
+    <a class="local" style="text-decoration:none;color:inherit" href="/api/logout">Log out</a>
+  </span>
 </div>
 
 <div class="wrap">
   <h1>Every photo &amp; video on the site, in one place.</h1>
-  <p class="sub">This board previews exactly what <code>assets/media.js</code> is pointing at. It is excluded from the public deploy (see <code>.vercelignore</code>) — only you see this page.</p>
+  <p class="sub">This board previews exactly what <code>assets/media.js</code> is pointing at. Online it sits behind the studio password (<code>middleware.js</code> + <code>/api/login</code>); opened locally it just works.</p>
 
   <div class="howto">
     <h2>How to change any image (or add a video)</h2>

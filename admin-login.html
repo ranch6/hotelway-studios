@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studio Access — Hotelway</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23B98A2F'/%3E%3Cpath d='M20 52L20 30Q20 18 32 18Q44 18 44 30L44 52Z' fill='%23faf7f1'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --linen: #FBF7EB; --linen-deep: #F2EBD5; --cream: #FFFDF4;
+    --stone-soft: #DCD3B4; --ink: #2C2F26; --ink-soft: #6A6D57; --gold: #B98A2F;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--linen); color: var(--ink);
+    font-family: 'Inter', -apple-system, sans-serif; font-weight: 300;
+    min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 28px;
+  }
+  .panel {
+    width: 100%; max-width: 380px; background: var(--cream);
+    border: 1px solid var(--stone-soft); padding: 46px 42px; text-align: center;
+  }
+  .mark {
+    font-family: 'Cormorant Garamond', serif; letter-spacing: 0.28em;
+    text-transform: uppercase; font-size: 0.95rem; margin-bottom: 8px;
+  }
+  .sub { font-size: 0.64rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 34px; }
+  input {
+    width: 100%; border: none; border-bottom: 1px solid var(--stone-soft);
+    background: transparent; outline: none; padding: 8px 0 10px; text-align: center;
+    font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--ink);
+    border-radius: 0; transition: border-color 0.3s;
+  }
+  input:focus { border-color: var(--ink); }
+  button {
+    margin-top: 30px; width: 100%; border: none; cursor: pointer;
+    background: var(--ink); color: var(--linen); padding: 15px 0;
+    font-family: 'Inter', sans-serif; font-size: 0.7rem; letter-spacing: 0.24em;
+    text-transform: uppercase; transition: background 0.35s;
+  }
+  button:hover { background: var(--gold); }
+  button:disabled { opacity: 0.55; cursor: default; }
+  .err { display: none; margin-top: 18px; font-size: 0.7rem; letter-spacing: 0.1em; color: var(--gold); }
+  .back { display: inline-block; margin-top: 30px; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; }
+  .back:hover { color: var(--gold); }
+</style>
+</head>
+<body>
+
+<form class="panel" id="gate">
+  <div class="mark">Hotelway Studios</div>
+  <div class="sub">Media board · studio access</div>
+  <input type="password" id="pw" placeholder="password" autocomplete="current-password" autofocus>
+  <button type="submit" id="go">Enter</button>
+  <p class="err" id="err">That's not it — try again.</p>
+  <a class="back" href="studio.html">&larr; back to the studio</a>
+</form>
+
+<script>
+  const form = document.getElementById('gate');
+  const err = document.getElementById('err');
+  const btn = document.getElementById('go');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const pw = document.getElementById('pw').value;
+    if (!pw) return;
+    err.style.display = 'none';
+    btn.disabled = true; btn.textContent = '…';
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: pw })
+      });
+      if (res.ok) { location.href = '/admin.html'; return; }
+      err.textContent = res.status === 503
+        ? 'Not configured yet — set the admin password in Vercel first.'
+        : (res.status === 429 ? 'Too many tries — wait a few minutes.' : 'That’s not it — try again.');
+    } catch {
+      err.textContent = 'Network hiccup — try again.';
+    }
+    err.style.display = 'block';
+    btn.disabled = false; btn.textContent = 'Enter';
+  });
+</script>
+
+</body>
+</html>

@@ -64,6 +64,32 @@ flow is what makes the private-edit/public-publish split work.)
 - **From anywhere:** claude.ai/code can connect to the GitHub repo directly,
   so you can make copy tweaks from a browser without this machine.
 
+## Online media board — password setup (owner does; ~3 min)
+
+The media board is served at **https://hotelway-studios.vercel.app/admin.html**
+behind a password. The gate is `middleware.js` (signed-cookie check) +
+`api/login.js` (password validation); both fail closed until two
+environment variables exist in Vercel:
+
+1. vercel.com → the `hotelway-studios` project → **Settings →
+   Environment Variables**. Add, for all environments:
+   - `ADMIN_PASSWORD` — the passphrase you'll type on the login page.
+     Pick a long one; it is the only thing between the internet and the
+     board.
+   - `ADMIN_SESSION_SECRET` — a random string used to sign the session
+     cookie. Generate one in Terminal with `openssl rand -hex 32` and
+     paste the output. Never reuse the password here.
+2. Redeploy once so the functions pick the variables up (Deployments →
+   ⋯ on the latest → Redeploy, or just push any commit).
+3. Visit `/admin.html` → you'll land on the login page → enter the
+   passphrase → the board opens. Sessions last 8 hours; "Log out" in the
+   board's top bar ends one early.
+
+Until the variables are set, `/admin.html` redirects to the login page
+and the login page reports "not configured" — nothing is exposed.
+Opening `admin.html` from the local folder still works with no password
+(there's no middleware locally, which is the intended convenience).
+
 ## Forms — Formspree setup (~3 min, free tier: 50 submissions/mo forever)
 
 Both forms (cover-page "Join" line and inquire.html) are wired for Formspree
