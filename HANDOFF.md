@@ -88,10 +88,18 @@ studio-shot location work + licensed reference frames.
   `ffmpeg -i file 2>&1 | grep -i rotation` — it should report none.
 - `band-waves.mp4` — **her footage**: Aegean waves loop, hero band video.
 - Raw originals (`*.heic`, `*.MOV`) stay on disk but are **gitignored**.
-- `work-*.jpg`, `deck-room.jpg`, `split-sunset.jpg` — old Unsplash interim
-  frames. **No longer referenced anywhere** (she asked for non-own imagery
-  and all licensing notes to be removed); kept on disk only as spares —
-  safe to delete. The on-site Unsplash disclosure notes are gone too.
+- Old Unsplash interim frames (`work-*.jpg`, `deck-room.jpg`,
+  `split-sunset.jpg`) are **deleted from the repo** (July 12, 2026).
+- **Asset protection (July 12, 2026):** all deployed images are re-encoded
+  with zero EXIF (no device/GPS/date), capped at 1200px, q70, with a baked
+  "© HOTELWAY STUDIOS" corner watermark; both videos are re-encoded with
+  the same watermark and `-map_metadata -1`. `assets/protect.js` (loaded by
+  all three public pages) blocks right-click save / drag-out / long-press.
+  Honest scope: screenshots and the network tab can't be stopped — the
+  watermark + web resolution are the real protection. Full-res clean
+  originals live only on her machine (raws gitignored; pre-watermark web
+  versions in the session scratchpad backup). Re-generate via PIL/ffmpeg
+  when adding new photos — never deploy an image without this pass.
 - **Gotcha:** when deleting assets, grep both pages for dangling references
   first — a July 10 commit once left six broken `<img>`s behind. With
   media.js this is now a single-file check (admin.html shows any misses).
